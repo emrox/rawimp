@@ -152,6 +152,57 @@ Check(third.Copied == 1, "a different file with the same name is still imported"
 Check(File.Exists(Path.Combine(vault, "SHOT1_001.nef")), "collision gets a sequence suffix, nothing overwritten");
 
 // Scanning a camera is slow, so the dialog shows a running count. Verify the engine reports it.
+// ---------------------------------------------------------------- translations
+// The failure these guard against is silent: a key present in one language and missing in another
+// shows the raw key in the UI, and only for users of that language.
+Console.WriteLine("translations:");
+var stringsDir = Path.Combine(RepoRoot(), "src", "RAWimp.App", "Strings");
+var languageDirs = Directory.Exists(stringsDir)
+    ? Directory.GetDirectories(stringsDir).OrderBy(d => d).ToList()
+    : new List<string>();
+
+Check(languageDirs.Count >= 2, $"at least two languages ship ({languageDirs.Count})");
+
+static List<string> KeysOf(string resw) =>
+    System.Xml.Linq.XDocument.Load(resw).Root!.Elements("data")
+        .Select(d => d.Attribute("name")!.Value).OrderBy(k => k, StringComparer.Ordinal).ToList();
+
+List<string>? reference = null;
+string? referenceName = null;
+foreach (var langDir in languageDirs)
+{
+    var resw = Path.Combine(langDir, "Resources.resw");
+    if (!File.Exists(resw)) { Check(false, $"{Path.GetFileName(langDir)} has a Resources.resw"); continue; }
+
+    var keys = KeysOf(resw);
+    Check(keys.Count == keys.Distinct().Count(), $"{Path.GetFileName(langDir)} has no duplicate keys");
+    Check(keys.All(k => k.Length > 0), $"{Path.GetFileName(langDir)} has no blank keys");
+
+    if (reference is null) { reference = keys; referenceName = Path.GetFileName(langDir); continue; }
+
+    var missing = reference.Except(keys).ToList();
+    var extra = keys.Except(reference).ToList();
+    Check(missing.Count == 0, $"{Path.GetFileName(langDir)} is not missing keys from {referenceName}"
+                            + (missing.Count > 0 ? " — " + string.Join(", ", missing.Take(5)) : ""));
+    Check(extra.Count == 0, $"{Path.GetFileName(langDir)} has no keys {referenceName} lacks"
+                          + (extra.Count > 0 ? " — " + string.Join(", ", extra.Take(5)) : ""));
+}
+
+// Every Loc.Get("...") in the app must resolve, or it renders as the raw key.
+var appDir = Path.Combine(RepoRoot(), "src", "RAWimp.App");
+var used = Directory.Exists(appDir)
+    ? Directory.GetFiles(appDir, "*.cs", SearchOption.AllDirectories)
+        .SelectMany(f => System.Text.RegularExpressions.Regex.Matches(File.ReadAllText(f), @"Loc\.Get\(""([^""]+)""")
+            .Select(m => m.Groups[1].Value))
+        .Distinct().ToList()
+    : new List<string>();
+
+var defined = reference ?? new List<string>();
+var undefined = used.Where(k => !defined.Contains(k)).ToList();
+Check(used.Count > 0, $"the app looks up translations ({used.Count} keys)");
+Check(undefined.Count == 0, "every Loc.Get key exists"
+                          + (undefined.Count > 0 ? " — missing: " + string.Join(", ", undefined.Take(5)) : ""));
+
 Console.WriteLine("scan progress:");
 var bigCard = Path.Combine(dir, "bigcard");
 Directory.CreateDirectory(bigCard);
@@ -257,3 +308,12 @@ catch (OperationCanceledException) { Check(true, "cancellation throws"); }
 
 Console.WriteLine(failures == 0 ? "\nALL CHECKS OK" : $"\nFAILED ({failures})");
 return failures == 0 ? 0 : 1;
+
+// Walk up to the repository root so the translation files can be found from the test's bin folder.
+static string RepoRoot()
+{
+    for (var d = new DirectoryInfo(AppContext.BaseDirectory); d is not null; d = d.Parent)
+        if (Directory.Exists(Path.Combine(d.FullName, "src", "RAWimp.App")))
+            return d.FullName;
+    return AppContext.BaseDirectory;
+}

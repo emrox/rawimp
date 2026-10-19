@@ -92,7 +92,7 @@ public sealed partial class MainWindow
         try
         {
             var pics = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
-            if (Directory.Exists(pics)) Roots.Add(NewFolder(pics, "Pictures"));
+            if (Directory.Exists(pics)) Roots.Add(NewFolder(pics, Loc.Get("Tree_Pictures")));
             foreach (var drive in DriveInfo.GetDrives().Where(d => d.IsReady))
                 Roots.Add(NewDriveNode(drive.RootDirectory.FullName, drive.Name));
             AddPortableDevices();

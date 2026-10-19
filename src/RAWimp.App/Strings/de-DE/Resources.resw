@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>  <data name="ImportButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties/Name" xml:space="preserve"><value>Importieren</value></data>
+  <data name="ImportButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip" xml:space="preserve"><value>Fotos von Karte oder Kamera importieren</value></data>
+  <data name="ImportLabel.Text" xml:space="preserve"><value>Importieren</value></data>
+  <data name="MenuButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties/Name" xml:space="preserve"><value>Menü</value></data>
+  <data name="MenuButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip" xml:space="preserve"><value>Menü</value></data>
+  <data name="MenuOpenFolder.Text" xml:space="preserve"><value>Ordner öffnen</value></data>
+  <data name="MenuSettings.Text" xml:space="preserve"><value>Einstellungen</value></data>
+  <data name="MenuAbout.Text" xml:space="preserve"><value>Über</value></data>
+  <data name="FilterMenu.Text" xml:space="preserve"><value>Filter</value></data>
+  <data name="SortMenu.Text" xml:space="preserve"><value>Sortierung</value></data>
+  <data name="OpenFolderButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties/Name" xml:space="preserve"><value>Ordner öffnen</value></data>
+  <data name="OpenFolderLabel.Text" xml:space="preserve"><value>Ordner öffnen</value></data>
+  <data name="SettingsButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties/Name" xml:space="preserve"><value>Einstellungen</value></data>
+  <data name="SettingsLabel.Text" xml:space="preserve"><value>Einstellungen</value></data>
+  <data name="FilterBox.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip" xml:space="preserve"><value>Nur Fotos mit dieser Bewertung zeigen</value></data>
+  <data name="SortBox.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip" xml:space="preserve"><value>Sortierreihenfolge</value></data>
+  <data name="PathText.Text" xml:space="preserve"><value>(kein Ordner)</value></data>
+  <data name="AboutButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties/Name" xml:space="preserve"><value>Über</value></data>
+  <data name="AboutButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip" xml:space="preserve"><value>Über RAWimp</value></data>
+  <data name="InfoToggle.[using:Microsoft.UI.Xaml.Automation]AutomationProperties/Name" xml:space="preserve"><value>Infobereich</value></data>
+  <data name="InfoToggle.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip" xml:space="preserve"><value>Infobereich ein- oder ausblenden</value></data>
+  <data name="PreviewHint.Text" xml:space="preserve"><value>Esc: zurück    ← →: blättern    1-5: bewerten    X: ablehnen</value></data>
+  <data name="ClosePreview.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip" xml:space="preserve"><value>Vorschau schließen (Esc)</value></data>
+  <data name="RatingHeader.Text" xml:space="preserve"><value>Bewertung</value></data>
+  <data name="Star1.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip" xml:space="preserve"><value>1 Stern</value></data>
+  <data name="Star2.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip" xml:space="preserve"><value>2 Sterne</value></data>
+  <data name="Star3.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip" xml:space="preserve"><value>3 Sterne</value></data>
+  <data name="Star4.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip" xml:space="preserve"><value>4 Sterne</value></data>
+  <data name="Star5.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip" xml:space="preserve"><value>5 Sterne</value></data>
+  <data name="RejectStar.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip" xml:space="preserve"><value>Ablehnen (X)</value></data>
+  <data name="InfoHeader.Text" xml:space="preserve"><value>Info</value></data>
+  <data name="Import_NoSource" xml:space="preserve"><value>Keine Karte oder Kamera gefunden</value></data>
+  <data name="Import_ConflictKeepBoth" xml:space="preserve"><value>Beide behalten — als name_001 importieren</value></data>
+  <data name="Import_ConflictSkip" xml:space="preserve"><value>Überspringen — vorhandene Datei behalten</value></data>
+  <data name="Import_ConflictOverwrite" xml:space="preserve"><value>Überschreiben — vorhandene Datei ersetzen</value></data>
+  <data name="Import_AttachSource" xml:space="preserve"><value>Kamera anschließen oder Karte einlegen.</value></data>
+  <data name="Import_Scanning" xml:space="preserve"><value>Wird durchsucht…</value></data>
+  <data name="Import_ScanningCount" xml:space="preserve"><value>Wird durchsucht… bisher {0} Dateien</value></data>
+  <data name="Import_NoPhotosFound" xml:space="preserve"><value>Auf dieser Quelle wurden keine Fotos gefunden.</value></data>
+  <data name="Import_FilesFound" xml:space="preserve"><value>{0} Dateien gefunden.</value></data>
+  <data name="Import_KeepImporting" xml:space="preserve"><value>Weiter importieren</value></data>
+  <data name="Import_StopImport" xml:space="preserve"><value>Import abbrechen</value></data>
+  <data name="Import_ConfirmStop" xml:space="preserve"><value>Ein Import läuft. Soll er abgebrochen werden?</value></data>
+  <data name="Import_SourceLabel" xml:space="preserve"><value>Importieren von</value></data>
+  <data name="Import_DestLabel" xml:space="preserve"><value>Kopieren nach</value></data>
+  <data name="Import_PatternLabel" xml:space="preserve"><value>Ordner- und Dateimuster</value></data>
+  <data name="Import_PatternHint1" xml:space="preserve"><value>Platzhalter: {yyyy} {MM} {dd} {HH} {mm} {ss} {make} {model} {ext} {name} {seq}</value></data>
+  <data name="Import_PatternHint2" xml:space="preserve"><value>{ext} und {name} übernehmen die Schreibweise der Kamera — {lower-ext} / {upper-ext} (und {lower-name} / {upper-name}) erzwingen sie.</value></data>
+  <data name="Import_HintSkip" xml:space="preserve"><value>Vorhandene Dateien bleiben unangetastet. Bereits importierte Fotos werden ebenfalls übersprungen.</value></data>
+  <data name="Import_HintOverwrite" xml:space="preserve"><value>Ein Foto mit bereits vergebenem Namen ersetzt die vorhandene Datei. Unverändert bereits importierte Fotos werden übersprungen, damit nichts unnötig neu geschrieben wird.</value></data>
+  <data name="Import_HintKeepBoth" xml:space="preserve"><value>Ein anderes Foto mit gleichem Namen wird als name_001 importiert, damit nichts verloren geht. Bereits importierte Fotos werden übersprungen.</value></data>
+  <data name="Import_ConflictLabel" xml:space="preserve"><value>Wenn eine Datei bereits existiert</value></data>
+  <data name="Import_PreviewLabel" xml:space="preserve"><value>Vorschau</value></data>
+  <data name="Import_Title" xml:space="preserve"><value>Fotos importieren</value></data>
+  <data name="Import_Action" xml:space="preserve"><value>Importieren</value></data>
+  <data name="Import_Close" xml:space="preserve"><value>Schließen</value></data>
+  <data name="Import_NothingToImport" xml:space="preserve"><value>Nichts zu importieren.</value></data>
+  <data name="Import_ChooseDestination" xml:space="preserve"><value>Bitte einen Zielordner wählen.</value></data>
+  <data name="Import_Summary" xml:space="preserve"><value>{0} importiert, {1} bereits vorhanden übersprungen</value></data>
+  <data name="Import_SummaryFailed" xml:space="preserve"><value>, {0} fehlgeschlagen</value></data>
+  <data name="Import_Interrupted" xml:space="preserve"><value>Import nach {0} von {1} Dateien unterbrochen — Karte oder Kamera getrennt?  {2}</value></data>
+  <data name="Import_Stopped" xml:space="preserve"><value>Import abgebrochen.</value></data>
+  <data name="Import_Browse" xml:space="preserve"><value>Durchsuchen…</value></data>
+  <data name="Filter_All" xml:space="preserve"><value>Alle Bewertungen</value></data>
+  <data name="Filter_AndUp" xml:space="preserve"><value>Ab {0}</value></data>
+  <data name="Filter_FiveStars" xml:space="preserve"><value>5 Sterne</value></data>
+  <data name="Filter_Rejected" xml:space="preserve"><value>Abgelehnt</value></data>
+  <data name="Filter_Unrated" xml:space="preserve"><value>Ohne Bewertung</value></data>
+  <data name="Sort_Name" xml:space="preserve"><value>Sortierung: Name</value></data>
+  <data name="Sort_Rating" xml:space="preserve"><value>Sortierung: Bewertung</value></data>
+  <data name="Exif_Folder" xml:space="preserve"><value>Ordner</value></data>
+  <data name="Exif_Open" xml:space="preserve"><value>Öffnen</value></data>
+  <data name="Exif_OpenHint" xml:space="preserve"><value>Doppelklick oder Eingabetaste</value></data>
+  <data name="Exif_File" xml:space="preserve"><value>Datei</value></data>
+  <data name="Exif_Location" xml:space="preserve"><value>Ort</value></data>
+  <data name="Exif_OnCamera" xml:space="preserve"><value>Auf der Kamera</value></data>
+  <data name="Exif_Note" xml:space="preserve"><value>Hinweis</value></data>
+  <data name="Exif_ImportForExif" xml:space="preserve"><value>Für vollständige EXIF-Daten importieren</value></data>
+  <data name="Settings_StartPlaceholder" xml:space="preserve"><value>(leer — zuletzt geöffneten Ordner verwenden)</value></data>
+  <data name="Settings_Browse" xml:space="preserve"><value>Durchsuchen…</value></data>
+  <data name="Settings_UseLastFolder" xml:space="preserve"><value>Zuletzt geöffneten Ordner</value></data>
+  <data name="Settings_NoLimit" xml:space="preserve"><value>Unbegrenzt</value></data>
+  <data name="Settings_ClearCache" xml:space="preserve"><value>Miniaturbild-Cache leeren</value></data>
+  <data name="Settings_StartFolderHeader" xml:space="preserve"><value>Beim Start zu öffnender Ordner</value></data>
+  <data name="Settings_StartFolderHint" xml:space="preserve"><value>Leer lassen, um den zuletzt geöffneten Ordner erneut zu öffnen.</value></data>
+  <data name="Settings_CacheHeader" xml:space="preserve"><value>Miniaturbild-Cache</value></data>
+  <data name="Settings_KeepAtMost" xml:space="preserve"><value>Höchstens behalten</value></data>
+  <data name="Settings_CacheHint" xml:space="preserve"><value>Überschreitet der Cache diese Größe, werden die am längsten nicht angesehenen Miniaturbilder entfernt. Sie werden automatisch neu erzeugt, wenn Sie diese Ordner erneut öffnen.</value></data>
+  <data name="Settings_Title" xml:space="preserve"><value>Einstellungen</value></data>
+  <data name="Settings_Save" xml:space="preserve"><value>Speichern</value></data>
+  <data name="Settings_Cancel" xml:space="preserve"><value>Abbrechen</value></data>
+  <data name="Settings_CacheEmpty" xml:space="preserve"><value>Cache ist leer</value></data>
+  <data name="Settings_CacheUsage" xml:space="preserve"><value>Belegt derzeit {0} MB</value></data>
+  <data name="Settings_Cleared" xml:space="preserve"><value> — geleert</value></data>
+  <data name="Settings_LanguageHeader" xml:space="preserve"><value>Sprache</value></data>
+  <data name="Settings_LanguageSystem" xml:space="preserve"><value>Windows folgen</value></data>
+  <data name="Settings_LanguageHint" xml:space="preserve"><value>Die Sprachumstellung wird nach einem Neustart von RAWimp wirksam.</value></data>
+  <data name="Cull_SelectSingleToRename" xml:space="preserve"><value>Zum Umbenennen ein einzelnes Foto auswählen</value></data>
+  <data name="Cull_RenameTitle" xml:space="preserve"><value>Umbenennen</value></data>
+  <data name="Cull_RenameAction" xml:space="preserve"><value>Umbenennen</value></data>
+  <data name="Cull_Cancel" xml:space="preserve"><value>Abbrechen</value></data>
+  <data name="Cull_RenamedTo" xml:space="preserve"><value>Umbenannt in {0}</value></data>
+  <data name="Cull_CameraItemsCant" xml:space="preserve"><value>Kameraobjekte können nicht {0} werden — zuerst importieren</value></data>
+  <data name="Cull_FoldersCant" xml:space="preserve"><value>Ordner können hier nicht {0} werden (Rechtsklick verwenden)</value></data>
+  <data name="Cull_VerbDeleted" xml:space="preserve"><value>gelöscht</value></data>
+  <data name="Cull_VerbRenamed" xml:space="preserve"><value>umbenannt</value></data>
+  <data name="Cull_RatingNeedsDisk" xml:space="preserve"><value>Zum Bewerten muss die Datei lokal vorliegen — zuerst importieren</value></data>
+  <data name="Cull_FoldersNotRated" xml:space="preserve"><value>Ordner können nicht bewertet werden</value></data>
+  <data name="About_Tagline" xml:space="preserve"><value>Fotobrowser, Auswahl- und Importwerkzeug</value></data>
+  <data name="About_Version" xml:space="preserve"><value>Version {0}</value></data>
+  <data name="About_Licence" xml:space="preserve"><value>Freie Software unter der GNU General Public License v3.0. Name und Logo fallen nicht unter diese Lizenz und verbleiben beim Autor.</value></data>
+  <data name="About_SourceLink" xml:space="preserve"><value>Quellcode und Lizenz auf GitHub</value></data>
+  <data name="About_Title" xml:space="preserve"><value>Über</value></data>
+  <data name="About_Close" xml:space="preserve"><value>Schließen</value></data>
+  <data name="Exif_Camera" xml:space="preserve"><value>Kamera</value></data>
+  <data name="Exif_Lens" xml:space="preserve"><value>Objektiv</value></data>
+  <data name="Exif_DateTaken" xml:space="preserve"><value>Aufnahmedatum</value></data>
+  <data name="Exif_Exposure" xml:space="preserve"><value>Belichtungszeit</value></data>
+  <data name="Exif_Aperture" xml:space="preserve"><value>Blende</value></data>
+  <data name="Exif_FocalLength" xml:space="preserve"><value>Brennweite</value></data>
+  <data name="Exif_ExposureBias" xml:space="preserve"><value>Belichtungskorrektur</value></data>
+  <data name="Exif_Flash" xml:space="preserve"><value>Blitz</value></data>
+  <data name="Exif_Dimensions" xml:space="preserve"><value>Abmessungen</value></data>
+  <data name="Exif_Size" xml:space="preserve"><value>Größe</value></data>
+  <data name="Tree_Pictures" xml:space="preserve"><value>Bilder</value></data>
+  <data name="Drop_Copy" xml:space="preserve"><value>Kopieren</value></data>
+  <data name="Drop_Move" xml:space="preserve"><value>Verschieben</value></data>
+  <data name="Drop_CaptionTo" xml:space="preserve"><value>{0} nach {1}</value></data>
+  <data name="Drop_Copied" xml:space="preserve"><value>Kopiert</value></data>
+  <data name="Drop_Moved" xml:space="preserve"><value>Verschoben</value></data>
+  <data name="Drop_Result" xml:space="preserve"><value>{0} {1} Objekt(e) nach {2}</value></data>
+  <data name="Cull_VerbMoved" xml:space="preserve"><value>verschoben</value></data>
+</root>

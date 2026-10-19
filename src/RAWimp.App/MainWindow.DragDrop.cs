@@ -115,7 +115,8 @@ public sealed partial class MainWindow
 
         var copying = WantsCopy(e);
         e.AcceptedOperation = copying ? DataPackageOperation.Copy : DataPackageOperation.Move;
-        e.DragUIOverride.Caption = $"{(copying ? "Copy" : "Move")} to {Path.GetFileName(target.TrimEnd('\\'))}";
+        e.DragUIOverride.Caption = Loc.Get("Drop_CaptionTo",
+            Loc.Get(copying ? "Drop_Copy" : "Drop_Move"), Path.GetFileName(target.TrimEnd(Path.DirectorySeparatorChar)));
         e.DragUIOverride.IsCaptionVisible = true;
         e.Handled = true;
     }
@@ -177,8 +178,8 @@ public sealed partial class MainWindow
 
             if (done)
             {
-                StatusText.Text = $"{(copying ? "Copied" : "Moved")} {paths.Count} item"
-                                + $"{(paths.Count == 1 ? "" : "s")} to {target}";
+                StatusText.Text = Loc.Get("Drop_Result",
+                    Loc.Get(copying ? "Drop_Copied" : "Drop_Moved"), paths.Count, target);
 
                 // The watcher refreshes the folder we're viewing, but the destination is somewhere
                 // else — if a folder landed there, its tree node has to be brought up to date too.

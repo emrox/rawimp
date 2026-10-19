@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>  <data name="ImportButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties/Name" xml:space="preserve"><value>Import</value></data>
+  <data name="ImportButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip" xml:space="preserve"><value>Import photos from a card or camera</value></data>
+  <data name="ImportLabel.Text" xml:space="preserve"><value>Import</value></data>
+  <data name="MenuButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties/Name" xml:space="preserve"><value>Menu</value></data>
+  <data name="MenuButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip" xml:space="preserve"><value>Menu</value></data>
+  <data name="MenuOpenFolder.Text" xml:space="preserve"><value>Open folder</value></data>
+  <data name="MenuSettings.Text" xml:space="preserve"><value>Settings</value></data>
+  <data name="MenuAbout.Text" xml:space="preserve"><value>About</value></data>
+  <data name="FilterMenu.Text" xml:space="preserve"><value>Filter</value></data>
+  <data name="SortMenu.Text" xml:space="preserve"><value>Sort</value></data>
+  <data name="OpenFolderButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties/Name" xml:space="preserve"><value>Open folder</value></data>
+  <data name="OpenFolderLabel.Text" xml:space="preserve"><value>Open folder</value></data>
+  <data name="SettingsButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties/Name" xml:space="preserve"><value>Settings</value></data>
+  <data name="SettingsLabel.Text" xml:space="preserve"><value>Settings</value></data>
+  <data name="FilterBox.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip" xml:space="preserve"><value>Show only photos with this rating</value></data>
+  <data name="SortBox.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip" xml:space="preserve"><value>Sort order</value></data>
+  <data name="PathText.Text" xml:space="preserve"><value>(no folder)</value></data>
+  <data name="AboutButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties/Name" xml:space="preserve"><value>About</value></data>
+  <data name="AboutButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip" xml:space="preserve"><value>About RAWimp</value></data>
+  <data name="InfoToggle.[using:Microsoft.UI.Xaml.Automation]AutomationProperties/Name" xml:space="preserve"><value>Info panel</value></data>
+  <data name="InfoToggle.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip" xml:space="preserve"><value>Show or hide the info panel</value></data>
+  <data name="PreviewHint.Text" xml:space="preserve"><value>Esc: back    ← →: navigate    1-5: rate    X: reject</value></data>
+  <data name="ClosePreview.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip" xml:space="preserve"><value>Close preview (Esc)</value></data>
+  <data name="RatingHeader.Text" xml:space="preserve"><value>Rating</value></data>
+  <data name="Star1.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip" xml:space="preserve"><value>1 star</value></data>
+  <data name="Star2.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip" xml:space="preserve"><value>2 stars</value></data>
+  <data name="Star3.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip" xml:space="preserve"><value>3 stars</value></data>
+  <data name="Star4.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip" xml:space="preserve"><value>4 stars</value></data>
+  <data name="Star5.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip" xml:space="preserve"><value>5 stars</value></data>
+  <data name="RejectStar.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip" xml:space="preserve"><value>Reject (X)</value></data>
+  <data name="InfoHeader.Text" xml:space="preserve"><value>Info</value></data>
+  <data name="Import_NoSource" xml:space="preserve"><value>No card or camera detected</value></data>
+  <data name="Import_ConflictKeepBoth" xml:space="preserve"><value>Keep both — import as name_001</value></data>
+  <data name="Import_ConflictSkip" xml:space="preserve"><value>Skip — leave the existing file</value></data>
+  <data name="Import_ConflictOverwrite" xml:space="preserve"><value>Overwrite — replace the existing file</value></data>
+  <data name="Import_AttachSource" xml:space="preserve"><value>Attach a camera or insert a card.</value></data>
+  <data name="Import_Scanning" xml:space="preserve"><value>Scanning…</value></data>
+  <data name="Import_ScanningCount" xml:space="preserve"><value>Scanning… {0} files so far</value></data>
+  <data name="Import_NoPhotosFound" xml:space="preserve"><value>No photos found on this source.</value></data>
+  <data name="Import_FilesFound" xml:space="preserve"><value>{0} files found.</value></data>
+  <data name="Import_KeepImporting" xml:space="preserve"><value>Keep importing</value></data>
+  <data name="Import_StopImport" xml:space="preserve"><value>Stop import</value></data>
+  <data name="Import_ConfirmStop" xml:space="preserve"><value>An import is running. Stop it?</value></data>
+  <data name="Import_SourceLabel" xml:space="preserve"><value>Import from</value></data>
+  <data name="Import_DestLabel" xml:space="preserve"><value>Copy to</value></data>
+  <data name="Import_PatternLabel" xml:space="preserve"><value>Folder and file pattern</value></data>
+  <data name="Import_PatternHint1" xml:space="preserve"><value>Tokens: {yyyy} {MM} {dd} {HH} {mm} {ss} {make} {model} {ext} {name} {seq}</value></data>
+  <data name="Import_PatternHint2" xml:space="preserve"><value>{ext} and {name} keep the camera's casing — {lower-ext} / {upper-ext} (and {lower-name} / {upper-name}) force it.</value></data>
+  <data name="Import_HintSkip" xml:space="preserve"><value>Existing files are never touched. Photos already imported are skipped too.</value></data>
+  <data name="Import_HintOverwrite" xml:space="preserve"><value>A photo whose name is taken replaces the file that's there. Photos already imported unchanged are skipped, so nothing is rewritten needlessly.</value></data>
+  <data name="Import_HintKeepBoth" xml:space="preserve"><value>A different photo with the same name is imported as name_001, so nothing is lost. Photos already imported are skipped.</value></data>
+  <data name="Import_ConflictLabel" xml:space="preserve"><value>If a file already exists</value></data>
+  <data name="Import_PreviewLabel" xml:space="preserve"><value>Preview</value></data>
+  <data name="Import_Title" xml:space="preserve"><value>Import photos</value></data>
+  <data name="Import_Action" xml:space="preserve"><value>Import</value></data>
+  <data name="Import_Close" xml:space="preserve"><value>Close</value></data>
+  <data name="Import_NothingToImport" xml:space="preserve"><value>Nothing to import.</value></data>
+  <data name="Import_ChooseDestination" xml:space="preserve"><value>Choose a destination folder.</value></data>
+  <data name="Import_Summary" xml:space="preserve"><value>Imported {0}, skipped {1} already there</value></data>
+  <data name="Import_SummaryFailed" xml:space="preserve"><value>, {0} failed</value></data>
+  <data name="Import_Interrupted" xml:space="preserve"><value>Import interrupted after {0} of {1} files — card or camera disconnected?  {2}</value></data>
+  <data name="Import_Stopped" xml:space="preserve"><value>Import stopped.</value></data>
+  <data name="Import_Browse" xml:space="preserve"><value>Browse…</value></data>
+  <data name="Filter_All" xml:space="preserve"><value>All ratings</value></data>
+  <data name="Filter_AndUp" xml:space="preserve"><value>{0} and up</value></data>
+  <data name="Filter_FiveStars" xml:space="preserve"><value>5 stars</value></data>
+  <data name="Filter_Rejected" xml:space="preserve"><value>Rejected</value></data>
+  <data name="Filter_Unrated" xml:space="preserve"><value>Unrated</value></data>
+  <data name="Sort_Name" xml:space="preserve"><value>Sort: name</value></data>
+  <data name="Sort_Rating" xml:space="preserve"><value>Sort: rating</value></data>
+  <data name="Exif_Folder" xml:space="preserve"><value>Folder</value></data>
+  <data name="Exif_Open" xml:space="preserve"><value>Open</value></data>
+  <data name="Exif_OpenHint" xml:space="preserve"><value>Double-click or Enter</value></data>
+  <data name="Exif_File" xml:space="preserve"><value>File</value></data>
+  <data name="Exif_Location" xml:space="preserve"><value>Location</value></data>
+  <data name="Exif_OnCamera" xml:space="preserve"><value>On camera</value></data>
+  <data name="Exif_Note" xml:space="preserve"><value>Note</value></data>
+  <data name="Exif_ImportForExif" xml:space="preserve"><value>Import to disk for full EXIF</value></data>
+  <data name="Settings_StartPlaceholder" xml:space="preserve"><value>(blank — reopen the last folder)</value></data>
+  <data name="Settings_Browse" xml:space="preserve"><value>Browse…</value></data>
+  <data name="Settings_UseLastFolder" xml:space="preserve"><value>Use last folder</value></data>
+  <data name="Settings_NoLimit" xml:space="preserve"><value>No limit</value></data>
+  <data name="Settings_ClearCache" xml:space="preserve"><value>Clear thumbnail cache</value></data>
+  <data name="Settings_StartFolderHeader" xml:space="preserve"><value>Folder to open at startup</value></data>
+  <data name="Settings_StartFolderHint" xml:space="preserve"><value>Leave blank to reopen the folder you had open last time.</value></data>
+  <data name="Settings_CacheHeader" xml:space="preserve"><value>Thumbnail cache</value></data>
+  <data name="Settings_KeepAtMost" xml:space="preserve"><value>Keep at most</value></data>
+  <data name="Settings_CacheHint" xml:space="preserve"><value>When the cache passes this size, the thumbnails you haven't looked at for longest are removed. They are rebuilt automatically if you visit those folders again.</value></data>
+  <data name="Settings_Title" xml:space="preserve"><value>Settings</value></data>
+  <data name="Settings_Save" xml:space="preserve"><value>Save</value></data>
+  <data name="Settings_Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="Settings_CacheEmpty" xml:space="preserve"><value>Cache is empty</value></data>
+  <data name="Settings_CacheUsage" xml:space="preserve"><value>Currently using {0} MB</value></data>
+  <data name="Settings_Cleared" xml:space="preserve"><value> — cleared</value></data>
+  <data name="Settings_LanguageHeader" xml:space="preserve"><value>Language</value></data>
+  <data name="Settings_LanguageSystem" xml:space="preserve"><value>Follow Windows</value></data>
+  <data name="Settings_LanguageHint" xml:space="preserve"><value>Changing the language takes effect when RAWimp is restarted.</value></data>
+  <data name="Cull_SelectSingleToRename" xml:space="preserve"><value>Select a single photo to rename</value></data>
+  <data name="Cull_RenameTitle" xml:space="preserve"><value>Rename</value></data>
+  <data name="Cull_RenameAction" xml:space="preserve"><value>Rename</value></data>
+  <data name="Cull_Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="Cull_RenamedTo" xml:space="preserve"><value>Renamed to {0}</value></data>
+  <data name="Cull_CameraItemsCant" xml:space="preserve"><value>Camera items can't be {0} — import first</value></data>
+  <data name="Cull_FoldersCant" xml:space="preserve"><value>Folders can't be {0} from here (use right-click)</value></data>
+  <data name="Cull_VerbDeleted" xml:space="preserve"><value>deleted</value></data>
+  <data name="Cull_VerbRenamed" xml:space="preserve"><value>renamed</value></data>
+  <data name="Cull_RatingNeedsDisk" xml:space="preserve"><value>Rating needs the file on disk — import it first</value></data>
+  <data name="Cull_FoldersNotRated" xml:space="preserve"><value>Folders can't be rated</value></data>
+  <data name="About_Tagline" xml:space="preserve"><value>Photo browser, culler and importer</value></data>
+  <data name="About_Version" xml:space="preserve"><value>Version {0}</value></data>
+  <data name="About_Licence" xml:space="preserve"><value>Free software under the GNU General Public License v3.0. The name and logo are not covered by that licence and remain the author's.</value></data>
+  <data name="About_SourceLink" xml:space="preserve"><value>Source code and licence on GitHub</value></data>
+  <data name="About_Title" xml:space="preserve"><value>About</value></data>
+  <data name="About_Close" xml:space="preserve"><value>Close</value></data>
+  <data name="Exif_Camera" xml:space="preserve"><value>Camera</value></data>
+  <data name="Exif_Lens" xml:space="preserve"><value>Lens</value></data>
+  <data name="Exif_DateTaken" xml:space="preserve"><value>Date taken</value></data>
+  <data name="Exif_Exposure" xml:space="preserve"><value>Exposure</value></data>
+  <data name="Exif_Aperture" xml:space="preserve"><value>Aperture</value></data>
+  <data name="Exif_FocalLength" xml:space="preserve"><value>Focal length</value></data>
+  <data name="Exif_ExposureBias" xml:space="preserve"><value>Exposure bias</value></data>
+  <data name="Exif_Flash" xml:space="preserve"><value>Flash</value></data>
+  <data name="Exif_Dimensions" xml:space="preserve"><value>Dimensions</value></data>
+  <data name="Exif_Size" xml:space="preserve"><value>Size</value></data>
+  <data name="Tree_Pictures" xml:space="preserve"><value>Pictures</value></data>
+  <data name="Drop_Copy" xml:space="preserve"><value>Copy</value></data>
+  <data name="Drop_Move" xml:space="preserve"><value>Move</value></data>
+  <data name="Drop_CaptionTo" xml:space="preserve"><value>{0} to {1}</value></data>
+  <data name="Drop_Copied" xml:space="preserve"><value>Copied</value></data>
+  <data name="Drop_Moved" xml:space="preserve"><value>Moved</value></data>
+  <data name="Drop_Result" xml:space="preserve"><value>{0} {1} item(s) to {2}</value></data>
+  <data name="Cull_VerbMoved" xml:space="preserve"><value>moved</value></data>
+</root>

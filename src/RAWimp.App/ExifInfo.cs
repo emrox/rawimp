@@ -12,7 +12,7 @@ static class ExifInfo
     public static List<ExifRow> Read(string path)
     {
         var rows = new List<ExifRow>();
-        try { rows.Add(new ExifRow("File", Path.GetFileName(path))); } catch { }
+        try { rows.Add(new ExifRow(Loc.Get("Exif_File"), Path.GetFileName(path))); } catch { }
 
         try
         {
@@ -29,24 +29,24 @@ static class ExifInfo
 
             var cam = string.Join(" ", new[] { Val(ExifDirectoryBase.TagMake), Val(ExifDirectoryBase.TagModel) }
                 .Where(x => !string.IsNullOrWhiteSpace(x)));
-            Add("Camera", cam);
-            Add("Lens", Val(ExifDirectoryBase.TagLensModel));
-            Add("Date taken", Val(ExifDirectoryBase.TagDateTimeOriginal) ?? Val(ExifDirectoryBase.TagDateTime));
-            Add("Exposure", Val(ExifDirectoryBase.TagExposureTime));
-            Add("Aperture", Val(ExifDirectoryBase.TagFNumber));
+            Add(Loc.Get("Exif_Camera"), cam);
+            Add(Loc.Get("Exif_Lens"), Val(ExifDirectoryBase.TagLensModel));
+            Add(Loc.Get("Exif_DateTaken"), Val(ExifDirectoryBase.TagDateTimeOriginal) ?? Val(ExifDirectoryBase.TagDateTime));
+            Add(Loc.Get("Exif_Exposure"), Val(ExifDirectoryBase.TagExposureTime));
+            Add(Loc.Get("Exif_Aperture"), Val(ExifDirectoryBase.TagFNumber));
             Add("ISO", Val(ExifDirectoryBase.TagIsoEquivalent));
-            Add("Focal length", Val(ExifDirectoryBase.TagFocalLength));
-            Add("Exposure bias", Val(ExifDirectoryBase.TagExposureBias));
-            Add("Flash", Val(ExifDirectoryBase.TagFlash));
+            Add(Loc.Get("Exif_FocalLength"), Val(ExifDirectoryBase.TagFocalLength));
+            Add(Loc.Get("Exif_ExposureBias"), Val(ExifDirectoryBase.TagExposureBias));
+            Add(Loc.Get("Exif_Flash"), Val(ExifDirectoryBase.TagFlash));
 
             var w = Val(ExifDirectoryBase.TagExifImageWidth);
             var h = Val(ExifDirectoryBase.TagExifImageHeight);
-            if (w is not null && h is not null) Add("Dimensions", $"{w} × {h}");
+            if (w is not null && h is not null) Add(Loc.Get("Exif_Dimensions"), $"{w} × {h}");
             if (gps?.GetGeoLocation() is { } loc) Add("GPS", $"{loc.Latitude:F5}, {loc.Longitude:F5}");
         }
         catch (Exception e) { Diag.Log("exif fail: " + e.Message); }
 
-        try { rows.Add(new ExifRow("Size", $"{new FileInfo(path).Length / 1048576.0:F1} MB")); } catch { }
+        try { rows.Add(new ExifRow(Loc.Get("Exif_Size"), $"{new FileInfo(path).Length / 1048576.0:F1} MB")); } catch { }
         return rows;
     }
 }

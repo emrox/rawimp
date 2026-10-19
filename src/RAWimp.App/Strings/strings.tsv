@@ -1,0 +1,132 @@
+ImportButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties/Name	Import	Importieren
+ImportButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip	Import photos from a card or camera	Fotos von Karte oder Kamera importieren
+ImportLabel.Text	Import	Importieren
+MenuButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties/Name	Menu	Menü
+MenuButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip	Menu	Menü
+MenuOpenFolder.Text	Open folder	Ordner öffnen
+MenuSettings.Text	Settings	Einstellungen
+MenuAbout.Text	About	Über
+FilterMenu.Text	Filter	Filter
+SortMenu.Text	Sort	Sortierung
+OpenFolderButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties/Name	Open folder	Ordner öffnen
+OpenFolderLabel.Text	Open folder	Ordner öffnen
+SettingsButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties/Name	Settings	Einstellungen
+SettingsLabel.Text	Settings	Einstellungen
+FilterBox.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip	Show only photos with this rating	Nur Fotos mit dieser Bewertung zeigen
+SortBox.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip	Sort order	Sortierreihenfolge
+PathText.Text	(no folder)	(kein Ordner)
+AboutButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties/Name	About	Über
+AboutButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip	About RAWimp	Über RAWimp
+InfoToggle.[using:Microsoft.UI.Xaml.Automation]AutomationProperties/Name	Info panel	Infobereich
+InfoToggle.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip	Show or hide the info panel	Infobereich ein- oder ausblenden
+PreviewHint.Text	Esc: back    ← →: navigate    1-5: rate    X: reject	Esc: zurück    ← →: blättern    1-5: bewerten    X: ablehnen
+ClosePreview.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip	Close preview (Esc)	Vorschau schließen (Esc)
+RatingHeader.Text	Rating	Bewertung
+Star1.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip	1 star	1 Stern
+Star2.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip	2 stars	2 Sterne
+Star3.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip	3 stars	3 Sterne
+Star4.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip	4 stars	4 Sterne
+Star5.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip	5 stars	5 Sterne
+RejectStar.[using:Microsoft.UI.Xaml.Controls]ToolTipService/ToolTip	Reject (X)	Ablehnen (X)
+InfoHeader.Text	Info	Info
+Import_NoSource	No card or camera detected	Keine Karte oder Kamera gefunden
+Import_ConflictKeepBoth	Keep both — import as name_001	Beide behalten — als name_001 importieren
+Import_ConflictSkip	Skip — leave the existing file	Überspringen — vorhandene Datei behalten
+Import_ConflictOverwrite	Overwrite — replace the existing file	Überschreiben — vorhandene Datei ersetzen
+Import_AttachSource	Attach a camera or insert a card.	Kamera anschließen oder Karte einlegen.
+Import_Scanning	Scanning…	Wird durchsucht…
+Import_ScanningCount	Scanning… {0} files so far	Wird durchsucht… bisher {0} Dateien
+Import_NoPhotosFound	No photos found on this source.	Auf dieser Quelle wurden keine Fotos gefunden.
+Import_FilesFound	{0} files found.	{0} Dateien gefunden.
+Import_KeepImporting	Keep importing	Weiter importieren
+Import_StopImport	Stop import	Import abbrechen
+Import_ConfirmStop	An import is running. Stop it?	Ein Import läuft. Soll er abgebrochen werden?
+Import_SourceLabel	Import from	Importieren von
+Import_DestLabel	Copy to	Kopieren nach
+Import_PatternLabel	Folder and file pattern	Ordner- und Dateimuster
+Import_PatternHint1	Tokens: {yyyy} {MM} {dd} {HH} {mm} {ss} {make} {model} {ext} {name} {seq}	Platzhalter: {yyyy} {MM} {dd} {HH} {mm} {ss} {make} {model} {ext} {name} {seq}
+Import_PatternHint2	{ext} and {name} keep the camera's casing — {lower-ext} / {upper-ext} (and {lower-name} / {upper-name}) force it.	{ext} und {name} übernehmen die Schreibweise der Kamera — {lower-ext} / {upper-ext} (und {lower-name} / {upper-name}) erzwingen sie.
+Import_HintSkip	Existing files are never touched. Photos already imported are skipped too.	Vorhandene Dateien bleiben unangetastet. Bereits importierte Fotos werden ebenfalls übersprungen.
+Import_HintOverwrite	A photo whose name is taken replaces the file that's there. Photos already imported unchanged are skipped, so nothing is rewritten needlessly.	Ein Foto mit bereits vergebenem Namen ersetzt die vorhandene Datei. Unverändert bereits importierte Fotos werden übersprungen, damit nichts unnötig neu geschrieben wird.
+Import_HintKeepBoth	A different photo with the same name is imported as name_001, so nothing is lost. Photos already imported are skipped.	Ein anderes Foto mit gleichem Namen wird als name_001 importiert, damit nichts verloren geht. Bereits importierte Fotos werden übersprungen.
+Import_ConflictLabel	If a file already exists	Wenn eine Datei bereits existiert
+Import_PreviewLabel	Preview	Vorschau
+Import_Title	Import photos	Fotos importieren
+Import_Action	Import	Importieren
+Import_Close	Close	Schließen
+Import_NothingToImport	Nothing to import.	Nichts zu importieren.
+Import_ChooseDestination	Choose a destination folder.	Bitte einen Zielordner wählen.
+Import_Summary	Imported {0}, skipped {1} already there	{0} importiert, {1} bereits vorhanden übersprungen
+Import_SummaryFailed	, {0} failed	, {0} fehlgeschlagen
+Import_Interrupted	Import interrupted after {0} of {1} files — card or camera disconnected?  {2}	Import nach {0} von {1} Dateien unterbrochen — Karte oder Kamera getrennt?  {2}
+Import_Stopped	Import stopped.	Import abgebrochen.
+Import_Browse	Browse…	Durchsuchen…
+Filter_All	All ratings	Alle Bewertungen
+Filter_AndUp	{0} and up	Ab {0}
+Filter_FiveStars	5 stars	5 Sterne
+Filter_Rejected	Rejected	Abgelehnt
+Filter_Unrated	Unrated	Ohne Bewertung
+Sort_Name	Sort: name	Sortierung: Name
+Sort_Rating	Sort: rating	Sortierung: Bewertung
+Exif_Folder	Folder	Ordner
+Exif_Open	Open	Öffnen
+Exif_OpenHint	Double-click or Enter	Doppelklick oder Eingabetaste
+Exif_File	File	Datei
+Exif_Location	Location	Ort
+Exif_OnCamera	On camera	Auf der Kamera
+Exif_Note	Note	Hinweis
+Exif_ImportForExif	Import to disk for full EXIF	Für vollständige EXIF-Daten importieren
+Settings_StartPlaceholder	(blank — reopen the last folder)	(leer — zuletzt geöffneten Ordner verwenden)
+Settings_Browse	Browse…	Durchsuchen…
+Settings_UseLastFolder	Use last folder	Zuletzt geöffneten Ordner
+Settings_NoLimit	No limit	Unbegrenzt
+Settings_ClearCache	Clear thumbnail cache	Miniaturbild-Cache leeren
+Settings_StartFolderHeader	Folder to open at startup	Beim Start zu öffnender Ordner
+Settings_StartFolderHint	Leave blank to reopen the folder you had open last time.	Leer lassen, um den zuletzt geöffneten Ordner erneut zu öffnen.
+Settings_CacheHeader	Thumbnail cache	Miniaturbild-Cache
+Settings_KeepAtMost	Keep at most	Höchstens behalten
+Settings_CacheHint	When the cache passes this size, the thumbnails you haven't looked at for longest are removed. They are rebuilt automatically if you visit those folders again.	Überschreitet der Cache diese Größe, werden die am längsten nicht angesehenen Miniaturbilder entfernt. Sie werden automatisch neu erzeugt, wenn Sie diese Ordner erneut öffnen.
+Settings_Title	Settings	Einstellungen
+Settings_Save	Save	Speichern
+Settings_Cancel	Cancel	Abbrechen
+Settings_CacheEmpty	Cache is empty	Cache ist leer
+Settings_CacheUsage	Currently using {0} MB	Belegt derzeit {0} MB
+Settings_Cleared	 — cleared	 — geleert
+Settings_LanguageHeader	Language	Sprache
+Settings_LanguageSystem	Follow Windows	Windows folgen
+Settings_LanguageHint	Changing the language takes effect when RAWimp is restarted.	Die Sprachumstellung wird nach einem Neustart von RAWimp wirksam.
+Cull_SelectSingleToRename	Select a single photo to rename	Zum Umbenennen ein einzelnes Foto auswählen
+Cull_RenameTitle	Rename	Umbenennen
+Cull_RenameAction	Rename	Umbenennen
+Cull_Cancel	Cancel	Abbrechen
+Cull_RenamedTo	Renamed to {0}	Umbenannt in {0}
+Cull_CameraItemsCant	Camera items can't be {0} — import first	Kameraobjekte können nicht {0} werden — zuerst importieren
+Cull_FoldersCant	Folders can't be {0} from here (use right-click)	Ordner können hier nicht {0} werden (Rechtsklick verwenden)
+Cull_VerbDeleted	deleted	gelöscht
+Cull_VerbRenamed	renamed	umbenannt
+Cull_RatingNeedsDisk	Rating needs the file on disk — import it first	Zum Bewerten muss die Datei lokal vorliegen — zuerst importieren
+Cull_FoldersNotRated	Folders can't be rated	Ordner können nicht bewertet werden
+About_Tagline	Photo browser, culler and importer	Fotobrowser, Auswahl- und Importwerkzeug
+About_Version	Version {0}	Version {0}
+About_Licence	Free software under the GNU General Public License v3.0. The name and logo are not covered by that licence and remain the author's.	Freie Software unter der GNU General Public License v3.0. Name und Logo fallen nicht unter diese Lizenz und verbleiben beim Autor.
+About_SourceLink	Source code and licence on GitHub	Quellcode und Lizenz auf GitHub
+About_Title	About	Über
+About_Close	Close	Schließen
+Exif_Camera	Camera	Kamera
+Exif_Lens	Lens	Objektiv
+Exif_DateTaken	Date taken	Aufnahmedatum
+Exif_Exposure	Exposure	Belichtungszeit
+Exif_Aperture	Aperture	Blende
+Exif_FocalLength	Focal length	Brennweite
+Exif_ExposureBias	Exposure bias	Belichtungskorrektur
+Exif_Flash	Flash	Blitz
+Exif_Dimensions	Dimensions	Abmessungen
+Exif_Size	Size	Größe
+Tree_Pictures	Pictures	Bilder
+Drop_Copy	Copy	Kopieren
+Drop_Move	Move	Verschieben
+Drop_CaptionTo	{0} to {1}	{0} nach {1}
+Drop_Copied	Copied	Kopiert
+Drop_Moved	Moved	Verschoben
+Drop_Result	{0} {1} item(s) to {2}	{0} {1} Objekt(e) nach {2}
+Cull_VerbMoved	moved	verschoben

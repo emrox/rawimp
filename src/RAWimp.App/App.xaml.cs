@@ -23,12 +23,30 @@ public partial class App : Application
     public App()
     {
         Diag.Log("App ctor");
+        ApplyLanguage();
         UnhandledException += (_, e) => Diag.Log("UNHANDLED (xaml): " + e.Message + "\n" + e.Exception);
         AppDomain.CurrentDomain.UnhandledException += (_, e) => Diag.Log("UNHANDLED (domain): " + (e.ExceptionObject as Exception));
         TaskScheduler.UnobservedTaskException += (_, e) => { Diag.Log("UNOBSERVED TASK: " + e.Exception); e.SetObserved(); };
         InitializeComponent();
     }
 
+
+    /// Pick the UI language before any window exists — x:Uid is resolved while markup is loaded, so
+    /// setting this later would leave the already-built UI in the previous language.
+    ///
+    /// A blank setting means "follow Windows", which is what the resource system does on its own.
+    private static void ApplyLanguage()
+    {
+        var chosen = Settings.Load().Language;
+        if (string.IsNullOrWhiteSpace(chosen)) return;
+
+        try
+        {
+            Microsoft.Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = chosen;
+            Diag.Log("language override: " + chosen);
+        }
+        catch (Exception e) { Diag.Log($"language override {chosen}: {e.Message}"); }
+    }
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
         Diag.Log("OnLaunched");

@@ -69,7 +69,7 @@ public sealed partial class MainWindow
         var targets = SelectedOnDisk();
         if (targets.Count == 0)
         {
-            if (ThumbGrid.SelectedItem is PhotoItem p) Rateable(p, "deleted");
+            if (ThumbGrid.SelectedItem is PhotoItem p) Rateable(p, Loc.Get("Cull_VerbDeleted"));
             return;
         }
 
@@ -104,10 +104,10 @@ public sealed partial class MainWindow
     {
         if (ThumbGrid.SelectedItems.Count > 1)
         {
-            StatusText.Text = "Select a single photo to rename";   // batch rename would need a pattern
+            StatusText.Text = Loc.Get("Cull_SelectSingleToRename");   // batch rename would need a pattern
             return;
         }
-        if (ThumbGrid.SelectedItem is not PhotoItem p || !Rateable(p, "renamed")) return;
+        if (ThumbGrid.SelectedItem is not PhotoItem p || !Rateable(p, Loc.Get("Cull_VerbRenamed"))) return;
         var index = ThumbGrid.SelectedIndex;
 
         // Pre-select the name but not the extension, like Explorer's rename.
@@ -115,10 +115,10 @@ public sealed partial class MainWindow
         box.Loaded += (_, _) => box.Focus(FocusState.Programmatic);
         var dlg = new ContentDialog
         {
-            Title = "Rename",
+            Title = Loc.Get("Cull_RenameTitle"),
             Content = box,
-            PrimaryButtonText = "Rename",
-            CloseButtonText = "Cancel",
+            PrimaryButtonText = Loc.Get("Cull_RenameAction"),
+            CloseButtonText = Loc.Get("Cull_Cancel"),
             DefaultButton = ContentDialogButton.Primary,
             XamlRoot = Content.XamlRoot,
         };
@@ -133,7 +133,7 @@ public sealed partial class MainWindow
         if (ok && WithCompanions(p.Path).Contains(side) && File.Exists(side))
             FileOps.Rename(side, Path.GetFileNameWithoutExtension(newName) + ".xmp", Hwnd);
 
-        if (ok) { StatusText.Text = $"Renamed to {newName}"; ReloadKeepingPosition(index); }
+        if (ok) { StatusText.Text = Loc.Get("Cull_RenamedTo", newName); ReloadKeepingPosition(index); }
     }
 
     private async void MoveSelected()
@@ -141,7 +141,7 @@ public sealed partial class MainWindow
         var targets = SelectedOnDisk();
         if (targets.Count == 0)
         {
-            if (ThumbGrid.SelectedItem is PhotoItem p) Rateable(p, "moved");
+            if (ThumbGrid.SelectedItem is PhotoItem p) Rateable(p, Loc.Get("Cull_VerbMoved"));
             return;
         }
 
@@ -161,8 +161,8 @@ public sealed partial class MainWindow
     /// Guard: folders and camera items aren't file-operable here.
     private bool Rateable(PhotoItem p, string verb)
     {
-        if (p.IsShell) { StatusText.Text = $"Camera items can't be {verb} — import first"; return false; }
-        if (p.IsFolder) { StatusText.Text = $"Folders can't be {verb} from here (use right-click)"; return false; }
+        if (p.IsShell) { StatusText.Text = Loc.Get("Cull_CameraItemsCant", verb); return false; }
+        if (p.IsFolder) { StatusText.Text = Loc.Get("Cull_FoldersCant", verb); return false; }
         return true;
     }
 
@@ -198,9 +198,9 @@ public sealed partial class MainWindow
         if (targets.Count == 0)
         {
             if (ThumbGrid.SelectedItem is PhotoItem { IsShell: true })
-                StatusText.Text = "Rating needs the file on disk — import it first";
+                StatusText.Text = Loc.Get("Cull_RatingNeedsDisk");
             else if (ThumbGrid.SelectedItem is PhotoItem { IsFolder: true })
-                StatusText.Text = "Folders can't be rated";
+                StatusText.Text = Loc.Get("Cull_FoldersNotRated");
             return;
         }
 

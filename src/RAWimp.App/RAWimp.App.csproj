@@ -56,6 +56,9 @@
     <Content Include="..\..\assets\fonts\lucide.ttf" Link="lucide.ttf" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
+  <!-- Translations live in Strings\<language>\Resources.resw. The SDK picks those up as
+       PRIResource automatically and compiles them into resources.pri, so they need no entry
+       here — adding one is a duplicate-item build error.  -->
   <ItemGroup>
     <PackageReference Include="MetadataExtractor" Version="2.9.3" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.3.1" />

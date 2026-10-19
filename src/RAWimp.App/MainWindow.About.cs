@@ -37,8 +37,8 @@ public sealed partial class MainWindow
             FontSize = 24,
             FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
         });
-        heading.Children.Add(new TextBlock { Text = "Photo browser, culler and importer", Foreground = dim });
-        heading.Children.Add(new TextBlock { Text = "Version " + AppVersion, FontSize = 12, Foreground = dim });
+        heading.Children.Add(new TextBlock { Text = Loc.Get("About_Tagline"), Foreground = dim });
+        heading.Children.Add(new TextBlock { Text = Loc.Get("About_Version", AppVersion), FontSize = 12, Foreground = dim });
 
         var logo = new Image
         {
@@ -52,15 +52,14 @@ public sealed partial class MainWindow
         panel.Children.Add(Row(logo, heading));
         panel.Children.Add(new TextBlock
         {
-            Text = "Free software under the GNU General Public License v3.0. The name and logo are "
-                 + "not covered by that licence and remain the author's.",
+            Text = Loc.Get("About_Licence"),
             FontSize = 12,
             TextWrapping = TextWrapping.Wrap,
             Foreground = dim,
         });
         panel.Children.Add(new HyperlinkButton
         {
-            Content = "Source code and licence on GitHub",
+            Content = Loc.Get("About_SourceLink"),
             NavigateUri = new Uri(ProjectUrl),
             Padding = new Thickness(0, 4, 0, 4),
         });
@@ -73,9 +72,9 @@ public sealed partial class MainWindow
 
         await ShowModalAsync(new ContentDialog
         {
-            Title = "About",
+            Title = Loc.Get("About_Title"),
             Content = panel,
-            CloseButtonText = "Close",
+            CloseButtonText = Loc.Get("About_Close"),
             DefaultButton = ContentDialogButton.Close,
             XamlRoot = Content.XamlRoot,
         });

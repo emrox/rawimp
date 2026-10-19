@@ -36,20 +36,20 @@ public sealed partial class MainWindow : Window
     /// also what the burger's Filter/Sort submenus show, so the two stay in step by construction.
     public List<ViewOption> FilterOptions { get; } =
     [
-        new("all",  "All ratings", "funnel", false),
-        new("1",    "1 and up",    "star",   true),
-        new("2",    "2 and up",    "star",   true),
-        new("3",    "3 and up",    "star",   true),
-        new("4",    "4 and up",    "star",   true),
-        new("5",    "5 stars",     "star",   true),
-        new("rej",  "Rejected",    "ban",    false),
-        new("none", "Unrated",     "star",   false),
+        new("all",  Loc.Get("Filter_All"), "funnel", false),
+        new("1",    Loc.Get("Filter_AndUp", 1), "star", true),
+        new("2",    Loc.Get("Filter_AndUp", 2), "star", true),
+        new("3",    Loc.Get("Filter_AndUp", 3), "star", true),
+        new("4",    Loc.Get("Filter_AndUp", 4), "star", true),
+        new("5",    Loc.Get("Filter_FiveStars"), "star", true),
+        new("rej",  Loc.Get("Filter_Rejected"), "ban", false),
+        new("none", Loc.Get("Filter_Unrated"), "star", false),
     ];
 
     public List<ViewOption> SortOptions { get; } =
     [
-        new("name",   "Sort: name",   "arrow-up-down", false),
-        new("rating", "Sort: rating", "star",          true),
+        new("name",   Loc.Get("Sort_Name"), "arrow-up-down", false),
+        new("rating", Loc.Get("Sort_Rating"), "star", true),
     ];
 
     /// The filesystem folder currently shown, or null when browsing a camera.
@@ -562,16 +562,16 @@ public sealed partial class MainWindow : Window
         if (p.IsFolder)
         {
             Exif.Clear();
-            Exif.Add(new ExifRow("Folder", p.Name));
-            Exif.Add(new ExifRow("Open", "Double-click or Enter"));
+            Exif.Add(new ExifRow(Loc.Get("Exif_Folder"), p.Name));
+            Exif.Add(new ExifRow(Loc.Get("Exif_Open"), Loc.Get("Exif_OpenHint")));
         }
         else if (p.IsShell)
         {
             // camera items have no local file to read EXIF from — show basics until imported
             Exif.Clear();
-            Exif.Add(new ExifRow("File", p.Name));
-            Exif.Add(new ExifRow("Location", "On camera"));
-            Exif.Add(new ExifRow("Note", "Import to disk for full EXIF"));
+            Exif.Add(new ExifRow(Loc.Get("Exif_File"), p.Name));
+            Exif.Add(new ExifRow(Loc.Get("Exif_Location"), Loc.Get("Exif_OnCamera")));
+            Exif.Add(new ExifRow(Loc.Get("Exif_Note"), Loc.Get("Exif_ImportForExif")));
         }
         else
         {
@@ -825,11 +825,11 @@ public sealed partial class MainWindow : Window
         var startBox = new TextBox
         {
             Text = _settings.StartFolder ?? "",
-            PlaceholderText = "(blank — reopen the last folder)",
+            PlaceholderText = Loc.Get("Settings_StartPlaceholder"),
             Width = 320,
         };
-        var browse = LucideIcon.IconButton("folder", "Browse…");
-        var clearStart = LucideIcon.IconButton("rotate-ccw", "Use last folder");
+        var browse = LucideIcon.IconButton("folder", Loc.Get("Settings_Browse"));
+        var clearStart = LucideIcon.IconButton("rotate-ccw", Loc.Get("Settings_UseLastFolder"));
         browse.Click += async (_, _) =>
         {
             var picked = await PickFolderAsync();
@@ -841,22 +841,22 @@ public sealed partial class MainWindow : Window
 
         var limits = new (string Label, int Mb)[]
         {
-            ("250 MB", 250), ("500 MB", 500), ("1 GB", 1024), ("2 GB", 2048), ("5 GB", 5120), ("No limit", 0),
+            ("250 MB", 250), ("500 MB", 500), ("1 GB", 1024), ("2 GB", 2048), ("5 GB", 5120), (Loc.Get("Settings_NoLimit"), 0),
         };
         var limitBox = new ComboBox { MinWidth = 160 };
         foreach (var (label, _) in limits) limitBox.Items.Add(label);
         var currentLimit = Array.FindIndex(limits, l => l.Mb == _settings.ThumbCacheLimitMb);
         limitBox.SelectedIndex = currentLimit >= 0 ? currentLimit : 2;   // fall back to 1 GB
 
-        var clearCache = LucideIcon.IconButton("trash-2", "Clear thumbnail cache");
+        var clearCache = LucideIcon.IconButton("trash-2", Loc.Get("Settings_ClearCache"));
         clearCache.Click += (_, _) =>
         {
             ThumbCache.Clear();
-            cacheText.Text = CacheSizeText() + "  — cleared";
+            cacheText.Text = CacheSizeText() + Loc.Get("Settings_Cleared");
         };
 
         var panel = new StackPanel { Spacing = 8, MinWidth = 420 };
-        panel.Children.Add(new TextBlock { Text = "Folder to open at startup", FontWeight = Microsoft.UI.Text.FontWeights.SemiBold });
+        panel.Children.Add(new TextBlock { Text = Loc.Get("Settings_StartFolderHeader"), FontWeight = Microsoft.UI.Text.FontWeights.SemiBold });
         var row = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8 };
         row.Children.Add(startBox);
         row.Children.Add(browse);
@@ -864,19 +864,18 @@ public sealed partial class MainWindow : Window
         panel.Children.Add(clearStart);
         panel.Children.Add(new TextBlock
         {
-            Text = "Leave blank to reopen the folder you had open last time.",
+            Text = Loc.Get("Settings_StartFolderHint"),
             FontSize = 12,
             Foreground = (Microsoft.UI.Xaml.Media.Brush)Application.Current.Resources["TextFillColorSecondaryBrush"],
             Margin = new Thickness(0, 0, 0, 8),
         });
 
-        panel.Children.Add(new TextBlock { Text = "Thumbnail cache", FontWeight = Microsoft.UI.Text.FontWeights.SemiBold });
+        panel.Children.Add(new TextBlock { Text = Loc.Get("Settings_CacheHeader"), FontWeight = Microsoft.UI.Text.FontWeights.SemiBold });
         panel.Children.Add(cacheText);
-        panel.Children.Add(Row(new TextBlock { Text = "Keep at most", VerticalAlignment = VerticalAlignment.Center }, limitBox));
+        panel.Children.Add(Row(new TextBlock { Text = Loc.Get("Settings_KeepAtMost"), VerticalAlignment = VerticalAlignment.Center }, limitBox));
         panel.Children.Add(new TextBlock
         {
-            Text = "When the cache passes this size, the thumbnails you haven't looked at for longest "
-                 + "are removed. They are rebuilt automatically if you visit those folders again.",
+            Text = Loc.Get("Settings_CacheHint"),
             FontSize = 12,
             TextWrapping = TextWrapping.Wrap,
             MaxWidth = 420,
@@ -884,12 +883,36 @@ public sealed partial class MainWindow : Window
         });
         panel.Children.Add(clearCache);
 
+        // Language. Tags are BCP-47; adding a language means adding a Strings/<tag>/Resources.resw
+        // and one entry here.
+        var languages = new (string Label, string? Tag)[]
+        {
+            (Loc.Get("Settings_LanguageSystem"), null),
+            ("English", "en-US"),
+            ("Deutsch", "de-DE"),
+        };
+        var languageBox = new ComboBox { MinWidth = 160 };
+        foreach (var (label, _) in languages) languageBox.Items.Add(label);
+        var currentLanguage = Array.FindIndex(languages, l => l.Tag == _settings.Language);
+        languageBox.SelectedIndex = currentLanguage >= 0 ? currentLanguage : 0;
+
+        panel.Children.Add(new TextBlock { Text = Loc.Get("Settings_LanguageHeader"), FontWeight = Microsoft.UI.Text.FontWeights.SemiBold });
+        panel.Children.Add(languageBox);
+        panel.Children.Add(new TextBlock
+        {
+            Text = Loc.Get("Settings_LanguageHint"),
+            FontSize = 12,
+            TextWrapping = TextWrapping.Wrap,
+            MaxWidth = 420,
+            Foreground = (Microsoft.UI.Xaml.Media.Brush)Application.Current.Resources["TextFillColorSecondaryBrush"],
+        });
+
         var dlg = new ContentDialog
         {
-            Title = "Settings",
+            Title = Loc.Get("Settings_Title"),
             Content = panel,
-            PrimaryButtonText = "Save",
-            CloseButtonText = "Cancel",
+            PrimaryButtonText = Loc.Get("Settings_Save"),
+            CloseButtonText = Loc.Get("Settings_Cancel"),
             DefaultButton = ContentDialogButton.Primary,
             XamlRoot = Content.XamlRoot,
         };
@@ -899,6 +922,7 @@ public sealed partial class MainWindow : Window
             var v = startBox.Text.Trim();
             _settings.StartFolder = string.IsNullOrWhiteSpace(v) ? null : v;
             _settings.ThumbCacheLimitMb = limits[Math.Max(0, limitBox.SelectedIndex)].Mb;
+            _settings.Language = languages[Math.Max(0, languageBox.SelectedIndex)].Tag;
             _settings.Save();
 
             // Apply straight away: lowering the limit should shrink the cache now, not eventually.
@@ -913,7 +937,7 @@ public sealed partial class MainWindow : Window
     private static string CacheSizeText()
     {
         var mb = ThumbCache.SizeBytes() / 1048576.0;
-        return mb < 0.1 ? "Cache is empty" : $"Currently using {mb:F1} MB";
+        return mb < 0.1 ? Loc.Get("Settings_CacheEmpty") : Loc.Get("Settings_CacheUsage", mb.ToString("F1"));
     }
 
     private async Task<string?> PickFolderAsync()

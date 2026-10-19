@@ -14,7 +14,7 @@ public sealed partial class MainWindow
 
     private async void OnOpenImport(object sender, RoutedEventArgs e)
     {
-        var sourceBox = new ComboBox { PlaceholderText = "No card or camera detected" };
+        var sourceBox = new ComboBox { PlaceholderText = Loc.Get("Import_NoSource") };
 
         // Rebuild the list in place, keeping the current pick if it's still attached.
         void RefreshSources()
@@ -36,20 +36,20 @@ public sealed partial class MainWindow
         RefreshSources();
 
         var destBox = new TextBox { Text = _settings.ImportFolder ?? DefaultImportFolder(), IsReadOnly = true };
-        var browse = LucideIcon.IconButton("folder", "Browse…");
+        var browse = LucideIcon.IconButton("folder", Loc.Get("Import_Browse"));
 
         var patternBox = new TextBox { Text = _settings.ImportPattern ?? ImportPattern.Default };
 
         var conflictBox = new ComboBox();
-        conflictBox.Items.Add("Keep both — import as name_001");
-        conflictBox.Items.Add("Skip — leave the existing file");
-        conflictBox.Items.Add("Overwrite — replace the existing file");
+        conflictBox.Items.Add(Loc.Get("Import_ConflictKeepBoth"));
+        conflictBox.Items.Add(Loc.Get("Import_ConflictSkip"));
+        conflictBox.Items.Add(Loc.Get("Import_ConflictOverwrite"));
         conflictBox.SelectedIndex = Enum.TryParse<ImportConflict>(_settings.ImportConflict, out var savedConflict)
             ? (int)savedConflict : (int)ImportConflict.KeepBoth;
 
         var status = new TextBlock
         {
-            Text = sourceBox.Items.Count == 0 ? "Attach a camera or insert a card." : "Scanning…",
+            Text = sourceBox.Items.Count == 0 ? Loc.Get("Import_AttachSource") : Loc.Get("Import_Scanning"),
             VerticalAlignment = VerticalAlignment.Center,
         };
         var scanRing = new ProgressRing { Width = 16, Height = 16, IsActive = false, Visibility = Visibility.Collapsed };
@@ -106,11 +106,11 @@ public sealed partial class MainWindow
             scanRing.IsActive = true;
             scanRing.Visibility = Visibility.Visible;
             setImportEnabled(false);
-            status.Text = "Scanning…";
+            status.Text = Loc.Get("Import_Scanning");
 
             var progress = new Progress<int>(n =>
             {
-                if (!cts.IsCancellationRequested) status.Text = $"Scanning… {n} files so far";
+                if (!cts.IsCancellationRequested) status.Text = Loc.Get("Import_ScanningCount", n);
             });
 
             try
@@ -119,7 +119,7 @@ public sealed partial class MainWindow
                 if (cts.IsCancellationRequested) return;   // superseded by a newer scan
 
                 candidates = found;
-                status.Text = found.Count == 0 ? "No photos found on this source." : $"{found.Count} files found.";
+                status.Text = found.Count == 0 ? Loc.Get("Import_NoPhotosFound") : Loc.Get("Import_FilesFound", found.Count);
                 RefreshPreview();
             }
             catch (OperationCanceledException) { return; }
@@ -146,8 +146,8 @@ public sealed partial class MainWindow
         // "Really stop?" can't be a second ContentDialog — WinUI allows only one at a time. A Flyout
         // with Full placement gives the same effect: a popup centred over everything, so it can't end
         // up scrolled out of sight the way an inline panel did once this dialog grew.
-        var stopButton = LucideIcon.IconButton("ban", "Stop import").AsDanger();
-        var keepButton = new Button { Content = "Keep importing" }.AsPrimary();
+        var stopButton = LucideIcon.IconButton("ban", Loc.Get("Import_StopImport")).AsDanger();
+        var keepButton = new Button { Content = Loc.Get("Import_KeepImporting") }.AsPrimary();
         var confirmFlyout = new Flyout
         {
             Content = new StackPanel
@@ -158,7 +158,7 @@ public sealed partial class MainWindow
                 {
                     new TextBlock
                     {
-                        Text = "An import is running. Stop it?",
+                        Text = Loc.Get("Import_ConfirmStop"),
                         FontWeight = Microsoft.UI.Text.FontWeights.SemiBold,
                         TextWrapping = TextWrapping.Wrap,
                     },
@@ -168,17 +168,15 @@ public sealed partial class MainWindow
         };
 
         var panel = new StackPanel { Spacing = 8 };
-        panel.Children.Add(Label("Import from"));
+        panel.Children.Add(Label(Loc.Get("Import_SourceLabel")));
         panel.Children.Add(sourceBox);
-        panel.Children.Add(Label("Copy to"));
+        panel.Children.Add(Label(Loc.Get("Import_DestLabel")));
         panel.Children.Add(RowFill(destBox, browse));
-        panel.Children.Add(Label("Folder and file pattern"));
+        panel.Children.Add(Label(Loc.Get("Import_PatternLabel")));
         panel.Children.Add(patternBox);
         panel.Children.Add(new TextBlock
         {
-            Text = "Tokens: {yyyy} {MM} {dd} {HH} {mm} {ss} {make} {model} {ext} {name} {seq}\n"
-                 + "{ext} and {name} keep the camera's casing — {lower-ext} / {upper-ext} "
-                 + "(and {lower-name} / {upper-name}) force it.",
+            Text = Loc.Get("Import_PatternHint1") + "\n" + Loc.Get("Import_PatternHint2"),
             FontSize = 12,
             TextWrapping = TextWrapping.Wrap,   // long hint must fold, not run past the dialog edge
             MaxWidth = 620,
@@ -193,22 +191,17 @@ public sealed partial class MainWindow
         };
         void UpdateConflictHint() => conflictHint.Text = (ImportConflict)Math.Max(0, conflictBox.SelectedIndex) switch
         {
-            ImportConflict.Skip =>
-                "Existing files are never touched. Photos already imported are skipped too.",
-            ImportConflict.Overwrite =>
-                "A photo whose name is taken replaces the file that's there. "
-                + "Photos already imported unchanged are skipped, so nothing is rewritten needlessly.",
-            _ =>
-                "A different photo with the same name is imported as name_001, so nothing is lost. "
-                + "Photos already imported are skipped.",
+            ImportConflict.Skip => Loc.Get("Import_HintSkip"),
+            ImportConflict.Overwrite => Loc.Get("Import_HintOverwrite"),
+            _ => Loc.Get("Import_HintKeepBoth"),
         };
         conflictBox.SelectionChanged += (_, _) => UpdateConflictHint();
         UpdateConflictHint();
 
-        panel.Children.Add(Label("If a file already exists"));
+        panel.Children.Add(Label(Loc.Get("Import_ConflictLabel")));
         panel.Children.Add(conflictBox);
         panel.Children.Add(conflictHint);
-        panel.Children.Add(Label("Preview"));
+        panel.Children.Add(Label(Loc.Get("Import_PreviewLabel")));
         panel.Children.Add(previewScroll);
         panel.Children.Add(bar);
         panel.Children.Add(Row(scanRing, status));
@@ -226,10 +219,10 @@ public sealed partial class MainWindow
 
         var dlg = new ContentDialog
         {
-            Title = "Import photos",
+            Title = Loc.Get("Import_Title"),
             Content = form,
-            PrimaryButtonText = "Import",
-            CloseButtonText = "Close",
+            PrimaryButtonText = Loc.Get("Import_Action"),
+            CloseButtonText = Loc.Get("Import_Close"),
             DefaultButton = ContentDialogButton.Primary,
             XamlRoot = Content.XamlRoot,
         };
@@ -293,9 +286,9 @@ public sealed partial class MainWindow
         // never appear. args.Cancel alone keeps the dialog open; the copy runs alongside it.
         dlg.PrimaryButtonClick += (_sender, args) =>
         {
-            if (candidates.Count == 0) { args.Cancel = true; status.Text = "Nothing to import."; return; }
+            if (candidates.Count == 0) { args.Cancel = true; status.Text = Loc.Get("Import_NothingToImport"); return; }
             var destination = destBox.Text.Trim();
-            if (string.IsNullOrWhiteSpace(destination)) { args.Cancel = true; status.Text = "Choose a destination folder."; return; }
+            if (string.IsNullOrWhiteSpace(destination)) { args.Cancel = true; status.Text = Loc.Get("Import_ChooseDestination"); return; }
 
             args.Cancel = true;                     // stay open; we close ourselves when finished
             _ = RunImportAsync(destination);
@@ -327,13 +320,11 @@ public sealed partial class MainWindow
                                                           destination, patternBox.Text.Trim(),
                                                           (ImportConflict)Math.Max(0, conflictBox.SelectedIndex),
                                                           progress, _importCts.Token);
-
-                var summary = $"Imported {outcome.Copied}, skipped {outcome.Duplicates} already there"
-                            + (outcome.Failed > 0 ? $", {outcome.Failed} failed" : "")
+                var summary = Loc.Get("Import_Summary", outcome.Copied, outcome.Duplicates)
+                            + (outcome.Failed > 0 ? Loc.Get("Import_SummaryFailed", outcome.Failed) : "")
                             + $"  ({outcome.MegabytesPerSecond:F0} MB/s)";
                 status.Text = outcome.Interrupted
-                    ? $"Import interrupted after {outcome.Processed} of {outcome.Total} files — "
-                    + $"card or camera disconnected?  {summary}"
+                    ? Loc.Get("Import_Interrupted", outcome.Processed, outcome.Total, summary)
                     : summary;
                 Diag.Log("import: " + status.Text);
 
@@ -347,7 +338,7 @@ public sealed partial class MainWindow
                     RevealInTree(destination);
                 }
             }
-            catch (OperationCanceledException) { status.Text = "Import stopped."; }
+            catch (OperationCanceledException) { status.Text = Loc.Get("Import_Stopped"); }
             catch (Exception ex) { status.Text = "Import failed: " + ex.Message; Diag.Log("import: " + ex); }
             finally
             {

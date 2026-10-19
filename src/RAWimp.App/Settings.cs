@@ -30,6 +30,9 @@ sealed class Settings
     /// window regardless, and this is what gets restored when there is room again.
     public bool ShowInfoPanel { get; set; } = true;
 
+    /// UI language as a BCP-47 tag ("en-US", "de-DE"). Blank or null follows Windows.
+    public string? Language { get; set; }
+
     private static string Dir => System.IO.Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RAWimp");
     private static string File_ => System.IO.Path.Combine(Dir, "settings.json");
