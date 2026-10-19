@@ -57,7 +57,6 @@ public sealed partial class MainWindow : Window
 
     private bool _preview;
     private int _exifToken;          // guards against stale async EXIF/preview updates
-    private PhotoItem? _selectedPhoto;   // so the previous item's selection border can be cleared
     private readonly Settings _settings = Settings.Load();
 
     /// Folders visited, most recent first — what the mouse's back button walks out through.

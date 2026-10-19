@@ -58,14 +58,19 @@ static class ShellMenu
     private static void Show(PIDL pidl, HWND owner, POINT pt)
     {
         SHBindToParent(pidl, typeof(IShellFolder).GUID, out var ppv, out var child).ThrowIfFailed();
-        var folder = (IShellFolder)ppv;
+
+        // S_OK with a null object shouldn't happen, but this is the one code path where a third-party
+        // shell extension gets to run inside our process, so take nothing on trust.
+        if (ppv is not IShellFolder folder) { Diag.Log("shell menu: no parent folder"); return; }
+
         IContextMenu? cm = null;
         HMENU hmenu = default;
         try
         {
             var iid = typeof(IContextMenu).GUID;
-            folder.GetUIObjectOf(owner, 1, [child], ref iid, IntPtr.Zero, out var obj);
-            cm = (IContextMenu)obj;
+            folder.GetUIObjectOf(owner, 1, [child], in iid, IntPtr.Zero, out var obj);
+            if (obj is not IContextMenu menu) { Diag.Log("shell menu: no IContextMenu"); return; }
+            cm = menu;
 
             hmenu = CreatePopupMenu();
             cm.QueryContextMenu(hmenu, 0, IdFirst, IdLast, CMF.CMF_NORMAL | CMF.CMF_EXTENDEDVERBS);

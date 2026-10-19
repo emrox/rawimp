@@ -134,7 +134,8 @@ public sealed partial class MainWindow
 
     private static FolderNode ShellFolderNode(ShellItem item)
     {
-        var fn = new FolderNode(item.ParsingName ?? item.Name, item.Name) { Item = item };
+        // A shell item can report no name at all; "?" matches what PhotoItem shows for the same case.
+        var fn = new FolderNode(item.ParsingName ?? item.Name ?? "", item.Name ?? "?") { Item = item };
         if (ShellHasSubfolders(item)) fn.Children.Add(new FolderNode(fn.Path, "…"));
         return fn;
     }
@@ -350,7 +351,9 @@ public sealed partial class MainWindow
             foreach (var child in sf.EnumerateChildren(FolderItemFilter.NonFolders, HWND.NULL)
                          .OrderBy(c => c.Name, StringComparer.OrdinalIgnoreCase))
             {
-                if (MediaExts.Contains(Path.GetExtension(child.Name))) list.Add(new PhotoItem(child));
+                // Path.GetExtension(null) returns null, and HashSet.Contains(null) throws — a single
+                // unnamed item on a camera would have taken down the whole listing.
+                if (child.Name is { } name && MediaExts.Contains(Path.GetExtension(name))) list.Add(new PhotoItem(child));
                 else child.Dispose();
             }
         }
