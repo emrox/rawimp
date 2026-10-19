@@ -6,7 +6,8 @@
 
     <!-- KeyboardAcceleratorPlacementMode=Hidden: the root Grid spans the window, so WinUI's automatic
          "Ctrl+O" accelerator tooltip would pop up whenever the pointer sits over empty space. -->
-    <Grid x:Name="Root" ColumnDefinitions="260,6,*,Auto" KeyboardAcceleratorPlacementMode="Hidden">
+    <Grid x:Name="Root" ColumnDefinitions="260,6,*,Auto" KeyboardAcceleratorPlacementMode="Hidden"
+          SizeChanged="OnRootSizeChanged">
         <Grid.KeyboardAccelerators>
             <KeyboardAccelerator Key="O" Modifiers="Control" Invoked="OnOpenExternalAccel" />
         </Grid.KeyboardAccelerators>
@@ -43,7 +44,7 @@
 
             <!-- Standard button, not accent: it sits alone under the tree, so its position already
                  gives it prominence without a block of colour pulling the eye off the photos. -->
-            <Button x:Name="ImportButton" Grid.Row="1" Click="OnOpenImport"
+            <Button x:Name="ImportButton" Grid.Row="1" Click="OnOpenImport" AutomationProperties.Name="Import"
                     Margin="8" Padding="10,7" HorizontalAlignment="Stretch"
                     ToolTipService.ToolTip="Import photos from a card or camera">
                 <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Center">
@@ -105,14 +106,15 @@
                     </Button.Flyout>
                 </Button>
 
-                <StackPanel x:Name="WideTools" Grid.Column="1" Orientation="Horizontal" Spacing="12">
-                <Button Click="OnPickFolder">
+                <StackPanel x:Name="WideTools" Grid.Column="1" Orientation="Horizontal" Spacing="12"
+                            SizeChanged="OnToolbarMetricsChanged">
+                <Button Click="OnPickFolder" AutomationProperties.Name="Open folder">
                     <StackPanel Orientation="Horizontal" Spacing="7">
                         <local:LucideIcon Glyph="folder-open" Size="16" />
                         <TextBlock Text="Open folder" />
                     </StackPanel>
                 </Button>
-                <Button Click="OnOpenSettings">
+                <Button Click="OnOpenSettings" AutomationProperties.Name="Settings">
                     <StackPanel Orientation="Horizontal" Spacing="7">
                         <local:LucideIcon Glyph="settings" Size="16" />
                         <TextBlock Text="Settings" />
@@ -155,12 +157,22 @@
                 <TextBlock x:Name="PathText" Grid.Column="2" Text="(no folder)" VerticalAlignment="Center"
                            TextTrimming="CharacterEllipsis" />
 
-                <!-- Icon-only and out on its own: About is rarely reached for, so it stays clear of
-                     the commands. Hidden when the burger takes over, which carries it as an item. -->
-                <Button x:Name="AboutButton" Grid.Column="3" Click="OnOpenAbout" Padding="10,5"
-                        AutomationProperties.Name="About" ToolTipService.ToolTip="About RAWimp">
-                    <local:LucideIcon Glyph="info" Size="16" />
-                </Button>
+                <StackPanel x:Name="RightTools" Grid.Column="3" Orientation="Horizontal" Spacing="6">
+                    <!-- Icon-only and out on its own: About is rarely reached for, so it stays clear
+                         of the commands. Hidden when the burger takes over, which carries it. -->
+                    <Button x:Name="AboutButton" Click="OnOpenAbout" Padding="10,5"
+                            AutomationProperties.Name="About" ToolTipService.ToolTip="About RAWimp">
+                        <local:LucideIcon Glyph="info" Size="16" />
+                    </Button>
+
+                    <!-- Deliberately never hidden with the rest of the toolbar: a narrow window is
+                         exactly when you need to reclaim the info panel's 300px, or peek at it. -->
+                    <Button x:Name="InfoToggle" Click="OnToggleInfoPanel" Padding="10,5"
+                            AutomationProperties.Name="Info panel"
+                            ToolTipService.ToolTip="Show or hide the info panel">
+                        <local:LucideIcon Glyph="panel-right" Size="16" />
+                    </Button>
+                </StackPanel>
             </Grid>
 
             <Grid Grid.Row="1">
@@ -263,7 +275,7 @@
         </Grid>
 
         <!-- info / EXIF panel -->
-        <Border Grid.Column="3" Width="300" BorderThickness="1,0,0,0"
+        <Border x:Name="InfoPanel" Grid.Column="3" Width="300" BorderThickness="1,0,0,0"
                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
             <ScrollViewer>
                 <StackPanel Padding="14" Spacing="6">

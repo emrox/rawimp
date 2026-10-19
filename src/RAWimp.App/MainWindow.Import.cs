@@ -14,7 +14,7 @@ public sealed partial class MainWindow
 
     private async void OnOpenImport(object sender, RoutedEventArgs e)
     {
-        var sourceBox = new ComboBox { MinWidth = 260, PlaceholderText = "No card or camera detected" };
+        var sourceBox = new ComboBox { PlaceholderText = "No card or camera detected" };
 
         // Rebuild the list in place, keeping the current pick if it's still attached.
         void RefreshSources()
@@ -35,12 +35,12 @@ public sealed partial class MainWindow
 
         RefreshSources();
 
-        var destBox = new TextBox { MinWidth = 300, Text = _settings.ImportFolder ?? DefaultImportFolder(), IsReadOnly = true };
-        var browse = new Button { Content = LucideIcon.Label("folder", "Browse…") };
+        var destBox = new TextBox { Text = _settings.ImportFolder ?? DefaultImportFolder(), IsReadOnly = true };
+        var browse = LucideIcon.IconButton("folder", "Browse…");
 
-        var patternBox = new TextBox { MinWidth = 380, Text = _settings.ImportPattern ?? ImportPattern.Default };
+        var patternBox = new TextBox { Text = _settings.ImportPattern ?? ImportPattern.Default };
 
-        var conflictBox = new ComboBox { MinWidth = 300 };
+        var conflictBox = new ComboBox();
         conflictBox.Items.Add("Keep both — import as name_001");
         conflictBox.Items.Add("Skip — leave the existing file");
         conflictBox.Items.Add("Overwrite — replace the existing file");
@@ -146,7 +146,7 @@ public sealed partial class MainWindow
         // "Really stop?" can't be a second ContentDialog — WinUI allows only one at a time. A Flyout
         // with Full placement gives the same effect: a popup centred over everything, so it can't end
         // up scrolled out of sight the way an inline panel did once this dialog grew.
-        var stopButton = new Button { Content = LucideIcon.Label("ban", "Stop import") }.AsDanger();
+        var stopButton = LucideIcon.IconButton("ban", "Stop import").AsDanger();
         var keepButton = new Button { Content = "Keep importing" }.AsPrimary();
         var confirmFlyout = new Flyout
         {
@@ -167,11 +167,11 @@ public sealed partial class MainWindow
             },
         };
 
-        var panel = new StackPanel { Spacing = 8, MinWidth = 620, MaxWidth = 660 };
+        var panel = new StackPanel { Spacing = 8 };
         panel.Children.Add(Label("Import from"));
         panel.Children.Add(sourceBox);
         panel.Children.Add(Label("Copy to"));
-        panel.Children.Add(Row(destBox, browse));
+        panel.Children.Add(RowFill(destBox, browse));
         panel.Children.Add(Label("Folder and file pattern"));
         panel.Children.Add(patternBox);
         panel.Children.Add(new TextBlock
@@ -213,18 +213,48 @@ public sealed partial class MainWindow
         panel.Children.Add(bar);
         panel.Children.Add(Row(scanRing, status));
 
+        // ContentDialog clips content it cannot fit — it never scrolls — and the buttons are the
+        // first thing to go. On a small screen at high zoom that left Import unreachable. The whole
+        // form therefore lives in a ScrollViewer whose size is bounded by the window below.
+        var form = new ScrollViewer
+        {
+            Content = panel,
+            VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+            HorizontalScrollMode = ScrollMode.Disabled,
+            HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled,
+        };
+
         var dlg = new ContentDialog
         {
             Title = "Import photos",
-            Content = panel,
+            Content = form,
             PrimaryButtonText = "Import",
             CloseButtonText = "Close",
             DefaultButton = ContentDialogButton.Primary,
             XamlRoot = Content.XamlRoot,
         };
 
-        // ContentDialog is capped near 548px by default, which clipped the wider content below.
+        // ContentDialog is capped near 548px by default, which clipped the wider content.
         dlg.Resources["ContentDialogMaxWidth"] = 760.0;
+
+        // Size against the window rather than fixed numbers, so the dialog fits whatever screen and
+        // zoom level it opens on. Bounding the *content* (not the dialog) is what makes the title and
+        // buttons stay put while the form scrolls between them.
+        void FitToWindow()
+        {
+            var room = Content.XamlRoot?.Size ?? default;
+            if (room.Width <= 0 || room.Height <= 0) return;
+
+            // Allowances: dialog padding and border for width; title bar, button row and padding
+            // for height. Floors keep it usable rather than correct on absurdly small windows.
+            form.MaxWidth = Math.Clamp(room.Width - 48, 280, 660);
+            form.MaxHeight = Math.Max(160, room.Height - 200);
+        }
+
+        FitToWindow();
+        // Resizing the window while the dialog is open must not bring the clipping back.
+        void OnRootChanged(XamlRoot _, XamlRootChangedEventArgs __) => FitToWindow();
+        if (Content.XamlRoot is { } xr) xr.Changed += OnRootChanged;
 
         setImportEnabled = on => dlg.IsPrimaryButtonEnabled = on;
         dlg.IsPrimaryButtonEnabled = false;      // nothing to import until a scan has finished
@@ -341,6 +371,7 @@ public sealed partial class MainWindow
         finally
         {
             DevicesChanged -= OnDevices;
+            if (Content.XamlRoot is { } root) root.Changed -= OnRootChanged;
             SaveImportSettings();
             _importCts?.Cancel();
             await scan;   // let any in-flight scan finish before dropping the dialog
@@ -360,6 +391,21 @@ public sealed partial class MainWindow
     {
         var row = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8 };
         foreach (var c in children) row.Children.Add(c);
+        return row;
+    }
+
+    /// A row whose first element takes the slack and whose second keeps its natural size.
+    ///
+    /// Row() is a StackPanel, where a stretching child has no effect — the text box would keep
+    /// whatever width its content wants and could not shrink on a narrow screen.
+    private static Grid RowFill(FrameworkElement fill, FrameworkElement tail)
+    {
+        var row = new Grid { ColumnSpacing = 8 };
+        row.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+        row.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        Grid.SetColumn(tail, 1);
+        row.Children.Add(fill);
+        row.Children.Add(tail);
         return row;
     }
 }

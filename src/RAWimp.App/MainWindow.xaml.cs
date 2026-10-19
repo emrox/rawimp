@@ -93,6 +93,8 @@ public sealed partial class MainWindow : Window
 
         HookMarquee();
         ApplyCacheLimit();
+        // The size handler only reacts to crossings, so set the initial state from the setting here.
+        ShowInfoPanel(_settings.ShowInfoPanel);
         ThumbCache.TrimInBackground();   // catch a cache that grew past the limit in a previous run
         BuildToolMenu();
         if (_settings.TreeWidth is { } saved)
@@ -412,12 +414,36 @@ public sealed partial class MainWindow : Window
         Sync(SortMenu, SortBox);
     }
 
-    private void OnCenterPaneSizeChanged(object sender, SizeChangedEventArgs e)
+    /// Widths of the toolbar's two halves, remembered from a layout where both were fully visible.
+    /// A collapsed element reports zero, so the threshold has to come from when they were last shown
+    /// — and taking both from the *same* wide state keeps the comparison stable instead of letting a
+    /// hidden About shrink the requirement and flip the toolbar back open.
+    private double _wideToolsWidth, _rightToolsWidth;
+
+    private void OnToolbarMetricsChanged(object sender, SizeChangedEventArgs e) => UpdateToolbarLayout();
+
+    private void OnCenterPaneSizeChanged(object sender, SizeChangedEventArgs e) => UpdateToolbarLayout();
+
+    /// Fold the commands into the burger once they no longer fit beside the path and the buttons on
+    /// the right.
+    ///
+    /// Measured rather than a hard-coded width: that number had to be retuned every time a button was
+    /// added or removed, and when it was too low the Grid silently clipped its rightmost column —
+    /// taking About and the info-panel toggle with it instead of collapsing anything.
+    private void UpdateToolbarLayout()
     {
-        // Below this the buttons and dropdowns start running off the edge of the pane. Lowered when
-        // Import moved out of the toolbar into the folder pane, freeing the width it took.
-        const double needed = 540;
-        var narrow = e.NewSize.Width < needed;
+        if (WideTools.Visibility == Visibility.Visible && WideTools.ActualWidth > 0)
+        {
+            _wideToolsWidth = WideTools.ActualWidth;
+            _rightToolsWidth = RightTools.ActualWidth;
+        }
+
+        if (_wideToolsWidth <= 0) return;   // not laid out yet — leave the commands up and retry
+
+        // Column spacing, the pane's padding, and a readable stub of the folder path.
+        const double slack = 140;
+        var narrow = CenterPane.ActualWidth < _wideToolsWidth + _rightToolsWidth + slack;
+
         WideTools.Visibility = narrow ? Visibility.Collapsed : Visibility.Visible;
         MenuButton.Visibility = narrow ? Visibility.Visible : Visibility.Collapsed;
         AboutButton.Visibility = narrow ? Visibility.Collapsed : Visibility.Visible;   // the burger carries it
@@ -446,6 +472,37 @@ public sealed partial class MainWindow : Window
             FolderTree.Focus(FocusState.Programmatic);   // anywhere else -> tree
     }
 
+
+    // --- info panel: a fixed 300px that a small screen cannot spare ---
+
+    /// Total content width below which the info panel is folded away. Below this there is not enough
+    /// left for the folder tree, a usable grid and 300px of EXIF at the same time.
+    private const double InfoPanelMinRoom = 900;
+
+    /// Only *transitions* across the threshold move the panel, never every resize event — otherwise
+    /// toggling it back on while the window is narrow would be undone by the next mouse move.
+    private bool? _wasNarrowForInfo;
+
+    private void OnRootSizeChanged(object sender, SizeChangedEventArgs e)
+    {
+        var narrow = e.NewSize.Width < InfoPanelMinRoom;
+        if (_wasNarrowForInfo == narrow) return;
+        _wasNarrowForInfo = narrow;
+
+        // Widening restores what the user last chose; narrowing always folds it away.
+        ShowInfoPanel(!narrow && _settings.ShowInfoPanel);
+    }
+
+    private void OnToggleInfoPanel(object sender, RoutedEventArgs e)
+    {
+        var showing = InfoPanel.Visibility == Visibility.Visible;
+        ShowInfoPanel(!showing);
+        _settings.ShowInfoPanel = !showing;
+        _settings.Save();
+    }
+
+    private void ShowInfoPanel(bool show) =>
+        InfoPanel.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
     private static bool IsInside(DependencyObject? node, DependencyObject container)
     {
         for (; node is not null; node = Microsoft.UI.Xaml.Media.VisualTreeHelper.GetParent(node))
@@ -771,8 +828,8 @@ public sealed partial class MainWindow : Window
             PlaceholderText = "(blank — reopen the last folder)",
             Width = 320,
         };
-        var browse = new Button { Content = LucideIcon.Label("folder", "Browse…") };
-        var clearStart = new Button { Content = LucideIcon.Label("rotate-ccw", "Use last folder") };
+        var browse = LucideIcon.IconButton("folder", "Browse…");
+        var clearStart = LucideIcon.IconButton("rotate-ccw", "Use last folder");
         browse.Click += async (_, _) =>
         {
             var picked = await PickFolderAsync();
@@ -791,7 +848,7 @@ public sealed partial class MainWindow : Window
         var currentLimit = Array.FindIndex(limits, l => l.Mb == _settings.ThumbCacheLimitMb);
         limitBox.SelectedIndex = currentLimit >= 0 ? currentLimit : 2;   // fall back to 1 GB
 
-        var clearCache = new Button { Content = LucideIcon.Label("trash-2", "Clear thumbnail cache") };
+        var clearCache = LucideIcon.IconButton("trash-2", "Clear thumbnail cache");
         clearCache.Click += (_, _) =>
         {
             ThumbCache.Clear();

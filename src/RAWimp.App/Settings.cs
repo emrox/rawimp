@@ -26,6 +26,10 @@ sealed class Settings
     /// Default keeps a big library cached without quietly eating the disk.
     public int ThumbCacheLimitMb { get; set; } = 1024;
 
+    /// Whether the info/EXIF panel is wanted. It is folded away automatically on a narrow
+    /// window regardless, and this is what gets restored when there is room again.
+    public bool ShowInfoPanel { get; set; } = true;
+
     private static string Dir => System.IO.Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RAWimp");
     private static string File_ => System.IO.Path.Combine(Dir, "settings.json");

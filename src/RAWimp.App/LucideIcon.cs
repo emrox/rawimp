@@ -28,6 +28,7 @@ public sealed class LucideIcon : ContentControl
         ["import"] = ["M12 3v12", "m8 11 4 4 4-4", "M8 5H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-4"],
         ["info"] = ["M12 16v-4", "M12 8h.01", "M 2,12 a 10,10 0 1 0 20,0 a 10,10 0 1 0 -20,0"],
         ["menu"] = ["M4 5h16", "M4 12h16", "M4 19h16"],
+        ["panel-right"] = ["M15 3v18", "M 5,3 H 19 A 2,2 0 0 1 21,5 V 19 A 2,2 0 0 1 19,21 H 5 A 2,2 0 0 1 3,19 V 5 A 2,2 0 0 1 5,3 Z"],
         ["rotate-ccw"] = ["M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8", "M3 3v5h5"],
         ["settings"] = ["M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915", "M 9,12 a 3,3 0 1 0 6,0 a 3,3 0 1 0 -6,0"],
         ["star"] = ["M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"],
@@ -47,6 +48,18 @@ public sealed class LucideIcon : ContentControl
         },
     };
 
+
+    /// A button showing an icon beside a label.
+    ///
+    /// Sets the accessible name explicitly: a ContentControl derives its name from text content, and
+    /// a panel of icon + TextBlock leaves it blank — screen readers (and UI tests) see an unnamed
+    /// button.
+    public static Button IconButton(string glyph, string text)
+    {
+        var button = new Button { Content = Label(glyph, text) };
+        Microsoft.UI.Xaml.Automation.AutomationProperties.SetName(button, text);
+        return button;
+    }
     private string _glyph = "";
     private double _size = 16;
     private bool _filled;
