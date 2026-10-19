@@ -414,8 +414,9 @@ public sealed partial class MainWindow : Window
 
     private void OnCenterPaneSizeChanged(object sender, SizeChangedEventArgs e)
     {
-        // Below this the buttons and dropdowns start running off the edge of the pane.
-        const double needed = 640;
+        // Below this the buttons and dropdowns start running off the edge of the pane. Lowered when
+        // Import moved out of the toolbar into the folder pane, freeing the width it took.
+        const double needed = 540;
         var narrow = e.NewSize.Width < needed;
         WideTools.Visibility = narrow ? Visibility.Collapsed : Visibility.Visible;
         MenuButton.Visibility = narrow ? Visibility.Visible : Visibility.Collapsed;

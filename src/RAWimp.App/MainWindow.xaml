@@ -14,6 +14,9 @@
         <!-- folder tree (lazy-loaded) -->
         <Border Grid.Column="0" BorderThickness="0,0,1,0"
                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+            <!-- The tree scrolls; Import is pinned under it so it stays reachable at any window
+                 size, including the narrow one where the toolbar collapses into the burger. -->
+            <Grid RowDefinitions="*,Auto">
             <!-- TreeView's own scroll viewer won't scroll sideways, so it sits in one that will.
                  The tree is left-aligned and its internal scrolling switched off, letting deep
                  folder names extend past the pane and become reachable. -->
@@ -37,6 +40,18 @@
                 </TreeView.ItemTemplate>
             </TreeView>
             </ScrollViewer>
+
+            <!-- Standard button, not accent: it sits alone under the tree, so its position already
+                 gives it prominence without a block of colour pulling the eye off the photos. -->
+            <Button x:Name="ImportButton" Grid.Row="1" Click="OnOpenImport"
+                    Margin="8" Padding="10,7" HorizontalAlignment="Stretch"
+                    ToolTipService.ToolTip="Import photos from a card or camera">
+                <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Center">
+                    <local:LucideIcon Glyph="import" Size="16" />
+                    <TextBlock Text="Import" />
+                </StackPanel>
+            </Button>
+            </Grid>
         </Border>
 
         <!-- drag to resize the folder pane -->
@@ -63,11 +78,6 @@
                             <MenuFlyoutItem Text="Open folder" Click="OnPickFolder">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon FontFamily="{StaticResource LucideFont}" Glyph="&#xE247;" FontSize="16" />
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>
-                            <MenuFlyoutItem Text="Import" Click="OnOpenImport">
-                                <MenuFlyoutItem.Icon>
-                                    <FontIcon FontFamily="{StaticResource LucideFont}" Glyph="&#xE22F;" FontSize="16" />
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
                             <MenuFlyoutItem Text="Settings" Click="OnOpenSettings">
@@ -100,12 +110,6 @@
                     <StackPanel Orientation="Horizontal" Spacing="7">
                         <local:LucideIcon Glyph="folder-open" Size="16" />
                         <TextBlock Text="Open folder" />
-                    </StackPanel>
-                </Button>
-                <Button Click="OnOpenImport">
-                    <StackPanel Orientation="Horizontal" Spacing="7">
-                        <local:LucideIcon Glyph="import" Size="16" />
-                        <TextBlock Text="Import" />
                     </StackPanel>
                 </Button>
                 <Button Click="OnOpenSettings">
