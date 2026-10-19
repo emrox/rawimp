@@ -21,35 +21,17 @@ public sealed partial class MainWindow
 
     // --- dragging out of the grid ---
     //
-    // Per-tile CanDrag rather than the GridView's own CanDragItems: DragItemsStarting carries no
-    // DragUI, and ListViewBase does not raise DragStarting on the item container either, so with the
-    // built-in route there is no way to replace the drag image — it stays the whole 184px tile.
-    // Owning the drag here means owning the selection rule too (see below).
-    private async void OnGridItemDragStarting(UIElement sender, DragStartingEventArgs e)
+    // The GridView's own CanDragItems, not per-tile CanDrag: an element with CanDrag set swallows the
+    // pointer input the GridView needs to select, so only the container's outer padding stayed
+    // clickable. That also means the grid keeps WinUI's default drag image (the tile, plus a stacked
+    // count for multi-select) — DragItemsStartingEventArgs exposes no DragUI to replace it with.
+    private void OnGridDragItemsStarting(object sender, DragItemsStartingEventArgs e)
     {
-        if ((sender as FrameworkElement)?.DataContext is not PhotoItem grabbed) { e.Cancel = true; return; }
-
-        // Explorer's rule: dragging one of the selected items takes the whole selection with it,
-        // while dragging an unselected item takes only that one.
-        var selection = ThumbGrid.SelectedItems.OfType<PhotoItem>().ToList();
-        List<PhotoItem> dragged = selection.Contains(grabbed) ? selection : [grabbed];
-
         // Camera items have no filesystem path, so there is nothing another app could open.
-        dragged = dragged.Where(i => !i.IsShell).ToList();
+        var dragged = e.Items.OfType<PhotoItem>().Where(i => !i.IsShell).ToList();
         if (dragged.Count == 0) { e.Cancel = true; return; }
 
         Offer(e.Data, dragged);
-
-        if (grabbed.IsFolder || grabbed.IsShell) return;   // no photo to show; keep the default
-
-        var deferral = e.GetDeferral();
-        try
-        {
-            if (await grabbed.DragBitmapAsync(gap: DragGap) is { } small)
-                e.DragUI.SetContentFromSoftwareBitmap(small, new Windows.Foundation.Point(0, 0));
-        }
-        catch (Exception ex) { Diag.Log("grid drag visual: " + ex.Message); }
-        finally { deferral.Complete(); }
     }
 
     // --- dragging the photo out of the big preview ---
